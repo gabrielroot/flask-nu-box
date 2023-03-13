@@ -6,7 +6,7 @@ from flask_admin.base import AdminIndexView
 from flask_simplelogin import login_required
 from werkzeug.security import generate_password_hash
 
-from projetoFlask.ext.database import db, Product, User
+from projetoFlask.ext.database import db, Product, User, Box
 #from projetoFlask.models import Product, User
 
 # Proteger o admin com login via Monkey Patch
@@ -38,7 +38,17 @@ class ProductAdmin(sqla.ModelView):
     def inaccessible_callback(self, name, **kwargs):
         return redirect(url_for('login'))
 
-#cusrom Nav item
+class BoxAdmin(sqla.ModelView):
+    column_list = ['name', 'value', 'goal', 'description']
+    can_edit = True
+
+    def is_accessible(self):
+        return is_logged_in()
+
+    def inaccessible_callback(self, name, **kwargs):
+        return redirect(url_for('login'))
+
+#custom Nav item
 class AnalyticsView(BaseView):
     @expose('/')
     def index(self):
@@ -49,5 +59,6 @@ def init_app(app):
     admin.template_mode = "bootstrap3"
     admin.init_app(app)
     admin.add_view(UserAdmin(User, db.session))
+    admin.add_view(BoxAdmin(Box, db.session))
     admin.add_view(ProductAdmin(Product, db.session))
     admin.add_view(AnalyticsView(name='Analytics', endpoint='analytics'))
