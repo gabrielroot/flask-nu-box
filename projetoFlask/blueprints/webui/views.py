@@ -2,8 +2,7 @@ from flask import abort, render_template
 from projetoFlask.ext.database import Product
 
 def index():
-    products = Product.query.all()
-    return render_template("index.html", products=products)
+    return render_template("index.html")
 
 def product(product_id):
     product = Product.query.filter_by(id=product_id).first() or abort(

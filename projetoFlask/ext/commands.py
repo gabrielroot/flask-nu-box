@@ -1,6 +1,6 @@
 import click
 from projetoFlask.ext.database import db
-from projetoFlask.ext.auth import create_user
+from projetoFlask.ext.authentication.auth import create_user
 from projetoFlask.ext.database import Product
 
 
