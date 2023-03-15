@@ -1,0 +1,55 @@
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="{{url_for('webui.index')}}" class="brand-link">
+      <i class="animation__wobble fab fa-slack-hash img-circle" style="opacity: .8; font-size: 2em"></i>
+      <span class="brand-text font-weight-light">Nu@Box</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="info col-md-6">
+            <b><a href="{{url_for('webui.profile')}}" class="d-block">{{current_user.username}}</a></b>
+        </div>
+
+        <div class="info col-md-6">
+          <a href="{{url_for('auth.logout')}}" class="d-block text-right m-r-4">
+            <i class="mr-lg-2 fas fa-sign-out-alt"></i>
+            Sair
+          </a>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
+          
+          <li class="nav-item">
+            <a href="{{ url_for('webui.index') }}" class="nav-link active">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="{{url_for('webui.myBoxes')}}" class="nav-link">
+              <i class="mr-lg-2 fas fa-boxes"></i>
+              <p>Minhas Caixinhas</p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="mr-lg-2 fas fa-random"></i>
+              <p>Movimentações</i></p>
+            </a>
+          </li>
+
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>

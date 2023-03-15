@@ -1,36 +1,65 @@
-{% extends "base.html" %}
+{% extends '/base.html' %}
+
+{% block custom_title %}Login{% endblock %}
+
+{% block bodyClasses %}login-page{% endblock %}
 
 {% block content %}
-<div class="column is-4 is-offset-4">
-    <h3 class="title">Login</h3>
-    <div class="box">
+  <div class="login-box">
+    <!-- /.login-logo -->
+    <div class="card card-outline card-primary">
+      <div class="card-header text-center">
+        <p class="h1"><b>Nu@</b>Box</p>
         {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <div class="notification is-danger">
-                    {{ messages[0] }}
-                </div>
-            {% endif %}
+          {% if messages %}
+            <div class="alert alert-danger" role="alert">{{ messages[0] }}</div>
+          {% endif %}
         {% endwith %}
+      </div>
+      <div class="card-body">
+        <p class="login-box-msg">Faça o login para iniciar sua sessão</p>
         <form method="POST" action="/auth/login">
-            <div class="field">
-                <div class="control">
-                    <input class="input is-large" type="username" name="username" placeholder="Your Username" autofocus="">
-                </div>
+          <div class="input-group mb-3">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-user"></span>
+              </div>
             </div>
-
-            <div class="field">
-                <div class="control">
-                    <input class="input is-large" type="password" name="password" placeholder="Your Password">
-                </div>
+            <input class="form-control" name="username" placeholder="Username">
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
             </div>
-            <div class="field">
-                <label class="checkbox">
-                    <input type="checkbox" name="remember">
-                    Remember me
+            <input type="password" name="password" class="form-control" placeholder="Senha">
+          </div>
+          <div class="row">
+            <div class="col-8">
+              <div class="icheck-primary">
+                <input type="checkbox" name="remember" id="remember">
+                <label for="remember">
+                  Lembrar-me
                 </label>
+              </div>
             </div>
-            <button class="button is-block is-info is-large is-fullwidth">Login</button>
+            <!-- /.col -->
+            <div class="col-4">
+              <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+            </div>
+            <!-- /.col -->
+          </div>
         </form>
+
+        <p class="mb-0">
+          <a href="{{ url_for('auth.signup') }}" class="text-center">Criar um novo usuário</a>
+        </p>
+      </div>
+      <!-- /.card-body -->
     </div>
-</div>
+    <!-- /.card -->
+  </div>
 {% endblock %}
+
+

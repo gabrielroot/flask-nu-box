@@ -1,58 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <title>{% block custom_title %}{% endblock %} | Nu@Box</title>
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Flask Auth Example</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />
-</head>
+        <!-- Google Font: Source Sans Pro -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+        <!-- Font Awesome Icons -->
+        <link rel="stylesheet" href={{ url_for('webui.static', filename="plugins/fontawesome-free/css/all.min.css") }}>
+        <!-- overlayScrollbars -->
+        <link rel="stylesheet" href={{ url_for('webui.static', filename="plugins/overlayScrollbars/css/OverlayScrollbars.min.css") }}>
+        <!-- Theme style -->
+        <link rel="stylesheet" href={{ url_for('webui.static', filename="dist/css/adminlte.min.css") }}>
+    </head>
+    <body class="hold-transition dark-mode {% block bodyClasses %}{% endblock %}">
 
-<body>
-    <section class="hero is-primary is-fullheight">
+        {% block content %}
+            
+        {% endblock %}
 
-        <div class="hero-head">
-            <nav class="navbar">
-                <div class="container">
-                    <div id="navbarMenuHeroA" class="navbar-menu">
-                        <div class="navbar-end">
-                            <a href="{{ url_for('webui.index') }}" class="navbar-item">
-                                Home
-                            </a>
-                            {% if current_user.is_authenticated %}
-                                <a href="{{ url_for('auth.profile') }}" class="navbar-item">
-                                    Profile
-                                </a>
-                            {% endif %}
+        <!-- REQUIRED SCRIPTS -->
+        <!-- jQuery -->
+        <script src={{ url_for('webui.static', filename='plugins/jquery/jquery.min.js') }}></script>
+        <!-- Bootstrap -->
+        <script src={{ url_for('webui.static', filename="plugins/bootstrap/js/bootstrap.bundle.min.js") }}></script>
+        <!-- overlayScrollbars -->
+        <script src={{ url_for('webui.static', filename="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js") }}></script>
+        <!-- AdminLTE App -->
+        <script src={{ url_for('webui.static', filename="dist/js/adminlte.js") }}></script>
 
-                            {% if not current_user.is_authenticated %}
-                                <a href="{{ url_for('auth.login') }}" class="navbar-item">
-                                    Login
-                                </a>
-                                <a href="{{ url_for('auth.signup') }}" class="navbar-item">
-                                    Sign Up
-                                </a>
-                            {% endif %}
-
-                            {% if current_user.is_authenticated %}
-                                <a href="{{ url_for('auth.logout') }}" class="navbar-item">
-                                    Logout
-                                </a>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </nav>
-        </div>
-
-        <div class="hero-body">
-            <div class="container has-text-centered">
-               {% block content %}
-               {% endblock %}
-            </div>
-        </div>
-    </section>
-</body>
-
+        <!-- PAGE PLUGINS -->
+        <!-- jQuery Mapael -->
+        <script src={{ url_for('webui.static', filename="plugins/jquery-mousewheel/jquery.mousewheel.js") }}></script>
+        <script src={{ url_for('webui.static', filename="plugins/raphael/raphael.min.js") }}></script>
+        <script src={{ url_for('webui.static', filename="plugins/jquery-mapael/jquery.mapael.min.js") }}></script>
+        <script src={{ url_for('webui.static', filename="plugins/jquery-mapael/maps/usa_states.min.js") }}></script>
+        <!-- ChartJS -->
+        <script src={{ url_for('webui.static', filename="plugins/chart.js/Chart.min.js") }}></script>
+    </body>
 </html>

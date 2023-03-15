@@ -1,31 +1,54 @@
-{% extends "base.html" %}
+{% extends '/base.html' %}
+
+{% block custom_title %}Register{% endblock %}
+
+{% block bodyClasses %}register-page{% endblock %}
 
 {% block content %}
-<div class="column is-4 is-offset-4">
-    <h3 class="title">Sign Up</h3>
-    <div class="box">
+  <div class="register-box">
+    <div class="card card-outline card-primary">
+      <div class="card-header text-center">
+        <p class="h1"><b>Nu@</b>Box</p>
         {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <div class="notification is-danger">
-                    {{ messages[0] }} Login at <a href="{{ url_for('auth.login') }}">login page</a>.
-                </div>
-            {% endif %}
+          {% if messages %}
+              <div class="notification is-danger">
+                  {{ messages[0] }} Login at <a href="{{ url_for('auth.login') }}">login page</a>.
+              </div>
+          {% endif %}
         {% endwith %}
+      </div>
+      <div class="card-body">
+        <p class="login-box-msg">Criar um novo usuário</p>
         <form method="POST" action="/auth/signup">
-            <div class="field">
-                <div class="control">
-                    <input class="input is-large" type="text" name="username" placeholder="Username" autofocus="" required>
-                </div>
+          <div class="input-group mb-3">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-user"></span>
+              </div>
             </div>
-
-            <div class="field">
-                <div class="control">
-                    <input class="input is-large" type="password" name="password" placeholder="Password" required>
-                </div>
+            <input type="text" class="form-control" name="username" placeholder="Username">
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
             </div>
-
-            <button class="button is-block is-info is-large is-fullwidth">Sign Up</button>
+            <input type="password" class="form-control" name="password" placeholder="Password">
+          </div>
+          <div class="row">
+            <!-- /.col -->
+            <div class="col-4">
+              <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
+            </div>
+            <!-- /.col -->
+          </div>
         </form>
-    </div>
-</div>
+
+        <a href="{{ url_for('auth.login') }}" class="text-center">Eu já tenho un cadastro!</a>
+      </div>
+      <!-- /.form-box -->
+    </div><!-- /.card -->
+  </div>
+  <!-- /.register-box -->
 {% endblock %}
