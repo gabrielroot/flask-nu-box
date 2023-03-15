@@ -1,8 +1,8 @@
   <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <aside class="main-sidebar sidebar-dark-purple elevation-4">
     <!-- Brand Logo -->
-    <a href="{{url_for('webui.index')}}" class="brand-link">
-      <i class="animation__wobble fab fa-slack-hash img-circle" style="opacity: .8; font-size: 2em"></i>
+    <a href="{{url_for('webui.index')}}" class="brand-link bg-purple">
+      <i class="animation__wobble fab fa-slack-hash img-circle" style="opacity: .8; font-size: 1.3em"></i>
       <span class="brand-text font-weight-light">Nu@Box</span>
     </a>
 
@@ -10,7 +10,10 @@
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="info col-md-6">
+        <div class="image">
+          <img src="{{url_for('webui.static', filename="dist/img/user2-160x160.jpg")}}" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
             <b><a href="{{url_for('webui.profile')}}" class="d-block">{{current_user.username}}</a></b>
         </div>
 
@@ -24,7 +27,7 @@
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
+        <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent nav-flat" data-widget="treeview" role="menu" data-accordion="false">
           
           <li class="nav-item">
             <a href="{{ url_for('webui.index') }}" class="nav-link active">
@@ -35,14 +38,14 @@
           
           <li class="nav-item">
             <a href="{{url_for('webui.myBoxes')}}" class="nav-link">
-              <i class="mr-lg-2 fas fa-boxes"></i>
+              <i class="nav-icon fas fa-boxes"></i>
               <p>Minhas Caixinhas</p>
             </a>
           </li>
 
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="mr-lg-2 fas fa-random"></i>
+              <i class="nav-icon fas fa-random"></i>
               <p>Movimentações</i></p>
             </a>
           </li>
