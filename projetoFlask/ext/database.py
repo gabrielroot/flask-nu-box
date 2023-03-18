@@ -9,10 +9,12 @@ db = SQLAlchemy()
 def init_app(app):
     db.init_app(app)
 
+
 class Base(db.Model):
     __abstract__ = True
     created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated = db.Column(db.DateTime, onupdate=datetime.utcnow)
+
 
 class User(Base, UserMixin, SerializerMixin):
     __tablename__ = "users"
@@ -22,6 +24,8 @@ class User(Base, UserMixin, SerializerMixin):
     password = db.Column(db.String(512))
 
     boxes = db.relationship('Box', backref='user', lazy=True)
+    balance = db.relationship('Balance', backref='user', uselist=False)
+
 
 class Box(Base, SerializerMixin):
     __tablename__ = "boxes"
@@ -33,10 +37,11 @@ class Box(Base, SerializerMixin):
     goal = db.Column(db.Numeric())
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    movimentations = db.relationship('Movimentation', backref='box', lazy=True)
+    movimentations = db.relationship('Transaction', backref='box', lazy=True)
 
-class Movimentation(Base, SerializerMixin):
-    __tablename__ = "movimentations"
+
+class Transaction(Base, SerializerMixin):
+    __tablename__ = "transactions"
 
     id = db.Column(db.Integer, primary_key=True)
     operation = db.Column(db.String(140))
@@ -44,11 +49,14 @@ class Movimentation(Base, SerializerMixin):
     description = db.Column(db.Text)
     date = db.Column(db.DateTime, default=datetime.utcnow)
 
-    box_id = db.Column(db.Integer, db.ForeignKey('boxes.id'), nullable=False)
+    box_id = db.Column(db.Integer, db.ForeignKey('boxes.id'), nullable=True)
+    balance_id = db.Column(db.Integer, db.ForeignKey('transactions.id'), nullable=True)
 
+class Balance(db.Model, SerializerMixin):
+    __tablename__ = "balances"
 
-class Product(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(140))
-    price = db.Column(db.Numeric())
-    description = db.Column(db.Text)
+    total = db.Column(db.Numeric())
+
+    transactions = db.relationship('Transaction', backref='balance', lazy=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))

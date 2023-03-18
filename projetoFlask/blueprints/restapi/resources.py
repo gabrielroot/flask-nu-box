@@ -1,20 +1,20 @@
 from flask import jsonify, abort
 from flask_restful import Resource
-from projetoFlask.ext.database import Product
+from projetoFlask.ext.database import User
 
 class ProductResource(Resource):
     def get(self):
-        products = Product.query.all() or abort(204)
+        users = User.query.all() or abort(204)
         return jsonify(
             {'products': [
-                product.to_dict()
-                for product in products
+                user.to_dict()
+                for user in users
             ]}
         )
 
 class ProductItemResource(Resource):
-    def get(self, product_id):
-        product = Product.query.filter_by(id=product_id).first() or abort(
+    def get(self, user_id):
+        user = User.query.filter_by(id=user_id).first() or abort(
             404
         )
-        return jsonify(product.to_dict())
+        return jsonify(user.to_dict())

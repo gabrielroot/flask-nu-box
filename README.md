@@ -16,8 +16,11 @@ Pronto! A aplicação já estará em execução
 
 ## Manipulando novas Migrations
 
-`docker exec -it main flask db migrate -m "New migration."` - Para gerar uma nova migração, com base na diferença da estrutura do código e a do banco
-`docker exec -it main flask db upgrade` - Para executar (efetivar) as alterações, no banco de dados.
+- `docker exec -it main flask db migrate -m "New migration."` - Para gerar uma nova migração, com base na diferença da estrutura do código e a do banco.
+
+- `docker exec -it main flask db upgrade` - Para executar (efetivar) as alterações, no banco de dados.
+
+- `docker exec -it main flask db` - Para ver todos os comandos disponíveis.
 
 ## OK!
 

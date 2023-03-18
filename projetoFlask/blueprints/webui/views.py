@@ -1,6 +1,5 @@
 from flask import abort, render_template
 from flask_login import login_required, current_user
-from projetoFlask.ext.database import Product
 
 @login_required
 def index():
