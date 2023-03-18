@@ -1,5 +1,5 @@
 from flask import Blueprint
-from .views import index, myBoxes, profile
+from .views import *
 
 bp = Blueprint("webui", __name__, template_folder="templates",
     url_prefix="/", static_folder='static', static_url_path='/static/webui'

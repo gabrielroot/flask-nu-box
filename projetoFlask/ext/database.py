@@ -50,7 +50,8 @@ class Transaction(Base, SerializerMixin):
     date = db.Column(db.DateTime, default=datetime.utcnow)
 
     box_id = db.Column(db.Integer, db.ForeignKey('boxes.id'), nullable=True)
-    balance_id = db.Column(db.Integer, db.ForeignKey('transactions.id'), nullable=True)
+    balance_id = db.Column(db.Integer, db.ForeignKey('balances.id'), nullable=True)
+
 
 class Balance(db.Model, SerializerMixin):
     __tablename__ = "balances"
@@ -59,4 +60,4 @@ class Balance(db.Model, SerializerMixin):
     total = db.Column(db.Numeric())
 
     transactions = db.relationship('Transaction', backref='balance', lazy=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
