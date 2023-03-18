@@ -1,6 +1,6 @@
 import click
 from projetoFlask.ext.database import db
-from projetoFlask.ext.authentication.auth import create_user
+from projetoFlask.ext.authentication.views.authView import create_user
 
 
 def create_db():
