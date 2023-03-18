@@ -1,13 +1,13 @@
 # Nu@Box
 
-> Um remake das caixinhas do Nbank
+> Um remake das caixinhas do Nubank
 
 Aplicação Flask + arquitetura modelo 
 
 ## Passos para inicializar a aplicação
 - Copie o arquivo `.env.sample` e o renomeie para `.env`
 - Esteja na pasta do projeto e execute os seguintes comandos no terminal:
-- `docker-compose up`
+- `docker-compose up --build`
 > Aguarde até o serviço `db` estar "ready to accept connections"
 - `$ docker exec -it main flask db upgrade`
 
@@ -23,11 +23,13 @@ E caso necessite, o Adminer em http://127.0.0.1:8080
 
 ## Manipulando novas Migrations
 
-- `docker exec -it main flask db migrate -m "New migration."` - Para gerar uma nova migração, com base na diferença da estrutura do código e a do banco.
+- `docker exec -it main flask db migrate -m "New migration."` - Para gerar uma nova migração, com base na diferença entre a estrutura do código (Models) e a do banco.
 
 - `docker exec -it main flask db upgrade` - Para executar (efetivar) as alterações, no banco de dados.
 
-- `docker exec -it main flask db` - Para ver todos os comandos disponíveis.
+- `docker exec -it main flask db` - Para ver todos os comandos disponíveis do Flask-Migrate.
+
+- `docker exec -it main flask` - Para ver todos os comandos disponíveis do Flask.
 
 <br>
 <br>
