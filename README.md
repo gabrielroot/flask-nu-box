@@ -28,3 +28,9 @@ Agora basta acessar a aplicação através do navegador pelo endereço http://12
 <br>
 <br>
 E caso necessite, o Adminer em http://127.0.0.1:8080
+
+<br>
+<hr>
+<br>
+
+![Diagrama de classes](doc/Caixinhas@Root.drawio.png "Diagrama de classes")
