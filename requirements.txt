@@ -18,3 +18,4 @@ toml==0.10.2
 Werkzeug==2.2.2
 psycopg2-binary==2.9.5
 Flask-Login==0.6.2
+Flask-Migrate==4.0.4

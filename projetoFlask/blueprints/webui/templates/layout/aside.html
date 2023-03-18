@@ -14,10 +14,10 @@
           <img src="{{url_for('webui.static', filename="dist/img/user2-160x160.jpg")}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-            <b><a href="{{url_for('webui.profile')}}" class="d-block">{{current_user.username}}</a></b>
+            <b><a href="{{url_for('webui.profile')}}" title="{{current_user.username}}" class="d-block">{{current_user.username | truncate(15, '...')}}</a></b>
         </div>
 
-        <div class="info col-md-6">
+        <div class="info">
           <a href="{{url_for('auth.logout')}}" class="d-block text-right m-r-4">
             <i class="mr-lg-2 fas fa-sign-out-alt"></i>
             Sair

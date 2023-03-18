@@ -10,6 +10,7 @@ PASSWORD_SCHEMES = ['pbkdf2_sha512', 'md5_crypt']
 EXTENSIONS = [
     "projetoFlask.ext.appearance:init_app",
     "projetoFlask.ext.database:init_app",
+    "projetoFlask.ext.migrations:init_app",
     "projetoFlask.ext.authentication.auth:init_app",
     "projetoFlask.ext.commands:init_app",
     "projetoFlask.blueprints.webui:init_app",
