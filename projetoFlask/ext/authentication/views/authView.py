@@ -2,6 +2,7 @@ from projetoFlask.ext.database import db, User
 from flask_login import login_user, login_required, logout_user
 from flask import render_template, redirect, url_for, request, flash
 from werkzeug.security import check_password_hash, generate_password_hash
+from projetoFlask.blueprints.webui.services import flashMessagesService
 
 
 def create_user(username, password):
@@ -25,7 +26,7 @@ def login_post():
     user = User.query.filter_by(username=username).first()
 
     if not user or not check_password_hash(user.password, password):
-        flash('Nome de usuário ou senha inválidos.')
+        flashMessagesService.addErrorMessage('Nome de usuário ou senha inválidos.')
         return redirect(url_for('auth.login'))
     
     login_user(user, remember=remember)
@@ -43,7 +44,7 @@ def signup_post():
     user = User.query.filter_by(username=username).first() 
 
     if user:
-        flash(f'O nome de usuário "{username}" já está cadastrado.')
+        flashMessagesService.addWarningMessage(f'Nome de usuário "{username}" não disponível.')
         return redirect(url_for('auth.signup'))
 
     new_user = User(username=username, password=generate_password_hash(password, method='sha256'))
