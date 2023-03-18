@@ -8,8 +8,8 @@ def create_user(username, password):
     if User.query.filter_by(username=username).first():
         raise RuntimeError(f'{username} já está cadastrado')
     user = User(username=username, password=generate_password_hash(password))
-    db.session.add(user)
-    db.session.commit()
+    user.persist()
+
     return user
 
 
@@ -48,8 +48,7 @@ def signup_post():
 
     new_user = User(username=username, password=generate_password_hash(password, method='sha256'))
 
-    db.session.add(new_user)
-    db.session.commit()
+    new_user.persist()
 
     return redirect(url_for('auth.login'))
 

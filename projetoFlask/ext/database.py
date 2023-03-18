@@ -12,8 +12,36 @@ def init_app(app):
 
 class Base(db.Model):
     __abstract__ = True
-    created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    updated = db.Column(db.DateTime, onupdate=datetime.utcnow)
+    
+    createdAt = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    updatedAt = db.Column(db.DateTime, onupdate=datetime.utcnow)
+    deletedAt = db.Column(db.DateTime)
+    deleted   = db.Column(db.Boolean, default=False, nullable=False)
+
+
+    def persist(self, flush=False):
+        db.session.add(self)
+        db.session.commit()
+
+        if flush:
+            db.session.refresh(self)
+            db.session.flush()
+
+        return self
+
+
+    def remove(self, flush=False):
+        self.deleted = True
+        self.deletedAt = datetime.utcnow
+
+        db.session.add(self)
+        db.session.commit()
+
+        if flush:
+            db.session.refresh(self)
+            db.session.flush()
+
+        return self
 
 
 class User(Base, UserMixin, SerializerMixin):
@@ -53,7 +81,7 @@ class Transaction(Base, SerializerMixin):
     balance_id = db.Column(db.Integer, db.ForeignKey('balances.id'), nullable=True)
 
 
-class Balance(db.Model, SerializerMixin):
+class Balance(Base, SerializerMixin):
     __tablename__ = "balances"
 
     id = db.Column(db.Integer, primary_key=True)
