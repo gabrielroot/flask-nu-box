@@ -1,4 +1,3 @@
-from flask import Blueprint
 from .urls import bp
 
 def init_app(app):

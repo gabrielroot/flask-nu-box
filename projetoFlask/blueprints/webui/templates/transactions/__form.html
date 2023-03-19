@@ -1,0 +1,42 @@
+<div class="card-body">                  
+    <div class="form-group">
+        {{ form.value.label(class="form-label text-capitalize") }}
+        {{ form.value(value=transaction.value if box.value else "", class="form-control") }}
+    </div>
+
+    <div class="form-group">
+        {{ form.description.label(class="form-label text-capitalize") }}
+        {{ form.description(class="form-control") }}
+    </div>
+
+    <div class="form-group d-flex">
+        {% for subfield in form.operation %}
+            {% if loop.index == 1 %}
+                <span class="d-flex align-items-center p-2 bg-success">
+            {% else %}
+                <span class="d-flex align-items-center p-2 bg-danger">
+            {% endif %}
+                {{ subfield(style="height: 20px; width: 20px") }}
+                {{subfield.label(class="m-0 ml-1 mr-4",  style="cursor: pointer")}}
+            </span>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="card-footer pull-right d-flex justify-content-end">
+    <a 
+        href="{{ url_for('webui.myTransactions') }}" 
+        class="btn btn-block btn-secondary col-4 mx-2"
+        style="align-self: end; height: 38px;"
+    >
+        Voltar para movimentações
+    </a>
+    <button type="submit" class="btn btn-block btn-primary col-4 d-flex align-items-center justify-content-center">
+        <i class="fa fa-save mx-2"></i>
+        Salvar
+    </button>
+</div>
+
+<script>
+    document.getElementById('description').value = "{{ transaction.description if transaction.description else "" }}"
+</script>

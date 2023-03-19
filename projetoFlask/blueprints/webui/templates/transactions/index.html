@@ -2,7 +2,60 @@
 
 {% block header_title %}Movimentações{% endblock %}
 {% block content %}
-  <div class="col-12 col-sm-6 col-md-3">
-    
+  <div class="col-12 card card-primary flex-wrap align-content-center p-md-4" style="min-height: 70vh">
+    <div class="card col-12">
+      <div class="card-body p-0 table-responsive">
+        <table class="table table-striped table-hover text-nowrap">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Operação</th>
+              <th>Valor</th>
+              <th>Origem/Destino</th>
+              <th>Descrição</th>
+              <th>Dia e hora</th>
+            </tr>
+            </thead>
+            <tbody>
+              {% for item in items %}
+                <tr>
+                  <td>{{item.id}}</td>
+                  <td>
+                    {% if item.operation == 'DEPOSIT' %}
+                      <span class="badge bg-success">{{operation.DEPOSIT.value}}</span>
+                    {% elif item.operation == 'WITHDRAW' %}
+                      <span class="badge bg-warning">{{operation.WITHDRAW.value}}</span>
+                    {% endif %}
+                  </td>
+                  <td>{{"R$ {:,.2f}".format(item.value)}}</td>
+                  <td>
+                    {% if item.box.id %}
+                      <span class="badge bg-secondary" data-toggle="tooltip" data-placement="right" title="{{item.box.name}}">
+                        <a 
+                          href="{{url_for('webui.editBox', id=item.box.id)}}" 
+                          class="text-white" 
+                        >
+                          <i class="fa fa-box"></i>
+                          Caixinha
+                        </a>
+                      </span>
+                    {% elif tem.balance.id %}
+                      <span class="badge bg-info">
+                        <i class="fas fa-wallet"></i>
+                        Conta
+                      </span>
+                    {% endif%}
+                  </td>
+                  <td>{{item.description}}</td>
+                  <td>{{item.date.strftime('%d/%m/%Y - %H:%M:%S')}}</td>
+                </tr>
+                <tr>
+              {% endfor %}
+            </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 {% endblock%}
+
+

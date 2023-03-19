@@ -1,0 +1,23 @@
+{% extends '/layout/base.html' %}
+
+{% block header_title %}Minhas Caixinhas{% endblock %}
+{% block content %}
+  <div class="col-12 card card-primary flex-wrap align-content-center p-md-4" style="min-height: 70vh">
+    <div class="col-12 col-sm-6 col-md-6">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Movimentar caixinha #{{ box.id }}</h3>
+            </div>
+        
+            <form method="POST" action="{{ url_for('webui.newTransaction', box_id=box.id) }}">
+                {{ form.csrf_token }}
+                {% include "transactions/__form.html" with context %}
+            </form>
+        </div>
+    </div>
+  </div>
+{% endblock%}
+
+<script>
+    document.getElementById('description').value = "{{ transaction.description if transaction.description else "" }}"
+</script>

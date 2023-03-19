@@ -15,16 +15,20 @@
         <link rel="stylesheet" href={{ url_for('webui.static', filename="plugins/overlayScrollbars/css/OverlayScrollbars.min.css") }}>
         <!-- Theme style -->
         <link rel="stylesheet" href={{ url_for('webui.static', filename="dist/css/adminlte.min.css") }}>
+
+        <!-- jQuery -->
+        <script src={{ url_for('webui.static', filename='plugins/jquery/jquery.min.js') }}></script>
     </head>
     <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed">
         <div class="wrapper">
+            
             <!-- Preloader -->
-            <div class="preloader flex-column justify-content-center align-items-center">
-                <h2>Nu@Box</h2>
-                <i class="text-xl text-center animation__wobble fab fa-slack-hash">
-                    <i><p class="text-sm">Made with Flask</p></i>
-                </i>
-            </div>
+            {# <div class="preloader flex-column justify-content-center align-items-center">    #}
+            {#    <h2>Nu@Box</h2>                                                               #}
+            {#      <i class="text-xl text-center animation__wobble fab fa-slack-hash">         #}
+            {#          <i><p class="text-sm">Made with Flask</p></i>                           #}
+            {#      </i>                                                                        #}
+            {#    </div>                                                                        #}
 
             {% include "layout/header.html" %}
             {% include "layout/aside.html" %}
@@ -63,8 +67,6 @@
         {% include "layout/footer.html" %}
 
         <!-- REQUIRED SCRIPTS -->
-        <!-- jQuery -->
-        <script src={{ url_for('webui.static', filename='plugins/jquery/jquery.min.js') }}></script>
         <!-- Bootstrap -->
         <script src={{ url_for('webui.static', filename="plugins/bootstrap/js/bootstrap.bundle.min.js") }}></script>
         <!-- overlayScrollbars -->
@@ -80,5 +82,12 @@
         <script src={{ url_for('webui.static', filename="plugins/jquery-mapael/maps/usa_states.min.js") }}></script>
         <!-- ChartJS -->
         <script src={{ url_for('webui.static', filename="plugins/chart.js/Chart.min.js") }}></script>
+
+        <script>
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+            })
+        </script>
+        {% block scripts %}{% endblock %}
     </body>
 </html>

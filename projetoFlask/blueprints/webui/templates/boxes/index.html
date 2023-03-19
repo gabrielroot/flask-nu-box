@@ -2,7 +2,64 @@
 
 {% block header_title %}Minhas Caixinhas{% endblock %}
 {% block content %}
-  <div class="col-12 col-sm-6 col-md-3">
-    
+  <div class="col-12 card card-primary flex-wrap align-content-center p-md-4" style="min-height: 70vh">
+    <div class="card col-12">
+      <div class="card-header">
+        <div class="card-tools">
+          <a href="{{url_for('webui.newBox')}}" class="btn btn-primary">
+            <i class="fa fa-plus mr-2"></i>
+            Criar caixinha
+          </a>
+        </div>
+      </div>
+      <div class="card-body p-0 table-responsive">
+        <table class="table table-striped table-hover text-nowrap">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nome</th>
+              <th>Descrição</th>
+              <th>Guardado</th>
+              <th>Meta</th>
+              <th class="col-1"></th>
+            </  thead>
+            <tbody>
+              {% for item in items %}
+                <tr>
+                  <td>{{item.id}}</td>
+                  <td>{{item.name}}</td>
+                  <td class="text-wrap col-4">{{item.description if item.description else "..."}}</td>
+                  <td>{{"R$ {:,.2f}".format(item.value)}}</td>
+                  <td>
+                    <span class="text-center">
+                      {{"R$ {:,.2f}".format(item.value)}} / {{"{:,.2f}".format(item.goal)}}
+                      <div class="progress mb-3" style="border-radius: 10px;">
+                        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="{{item.value}}" aria-valuemin="0" aria-valuemax="{{item.goal}}" style="width: {{item.value * 100 / item.goal}}%">
+                          {{item.value * 100 / item.goal}}%
+                        </div>
+                      </div>
+                    </span>
+                  </td>
+                  <td>
+                    <div class="dropdown">
+                      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Ações
+                      </a>
+                    
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="{{url_for('webui.editBox', id=item.id)}}"><i class="nav-icon fas fa-edit mr-2"></i>Editar</a>
+                        <a class="dropdown-item" href="{{url_for('webui.newTransaction', box_id=item.id)}}"><i class="nav-icon fas fa-random mr-2"></i>Resgatar/Guardar</a>
+                        <a class="dropdown-item text-red" href="{{url_for('webui.deleteBox', id=item.id)}}"><i class="nav-icon fas fa-trash mr-2"></i>Deletar</a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 {% endblock%}
+
+
