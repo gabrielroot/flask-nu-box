@@ -14,12 +14,13 @@ class Base(db.Model):
     __abstract__ = True
     
     createdAt = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    updatedAt = db.Column(db.DateTime, onupdate=datetime.utcnow)
+    updatedAt = db.Column(db.DateTime)
     deletedAt = db.Column(db.DateTime)
     deleted   = db.Column(db.Boolean, default=False, nullable=False)
 
 
     def persist(self, flush=False):
+        self.updatedAt = datetime.utcnow()
         db.session.add(self)
         db.session.commit()
 
@@ -32,7 +33,7 @@ class Base(db.Model):
 
     def remove(self, flush=False):
         self.deleted = True
-        self.deletedAt = datetime.utcnow
+        self.deletedAt = datetime.utcnow()
 
         db.session.add(self)
         db.session.commit()

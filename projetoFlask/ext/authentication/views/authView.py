@@ -1,4 +1,4 @@
-from projetoFlask.ext.database import db, User
+from projetoFlask.ext.database import User, Balance
 from flask_login import login_user, login_required, logout_user
 from flask import render_template, redirect, url_for, request, flash
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -8,7 +8,8 @@ from projetoFlask.blueprints.webui.services import flashMessagesService
 def create_user(username, password):
     if User.query.filter_by(username=username).first():
         raise RuntimeError(f'{username} já está cadastrado')
-    user = User(username=username, password=generate_password_hash(password))
+    balance = Balance(total=1000)
+    user = User(username=username, password=generate_password_hash(password), balance=balance)
     user.persist()
 
     return user
@@ -47,7 +48,8 @@ def signup_post():
         flashMessagesService.addWarningMessage(f'Nome de usuário "{username}" não disponível.')
         return redirect(url_for('auth.signup'))
 
-    new_user = User(username=username, password=generate_password_hash(password, method='sha256'))
+    balance = Balance(total=1000)
+    new_user = User(username=username, password=generate_password_hash(password, method='sha256'), balance=balance)
 
     new_user.persist()
 
