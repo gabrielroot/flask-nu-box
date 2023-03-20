@@ -7,10 +7,23 @@
       <span class="info-box-icon bg-success elevation-1"><i class="fas fa-money-bill-wave"></i></span>
 
       <div class="info-box-content">
-        <span class="info-box-text">Em Caixa</span>
+        <span class="info-box-text">Saldo total</span>
         <span class="info-box-number">
-          10
-          <small>%</small>
+          R$ 1.200,00
+        </span>
+      </div>
+      <!-- /.info-box-content -->
+    </div>
+    <!-- /.info-box -->
+  </div>
+  <div class="col-12 col-sm-6 col-md-3">
+    <div class="info-box">
+      <span class="info-box-icon bg-success elevation-1"><i class="fas fa-money-bill-wave"></i></span>
+
+      <div class="info-box-content">
+        <span class="info-box-text">Saldo nas caixinhas</span>
+        <span class="info-box-number">
+          R$ 1.200,00
         </span>
       </div>
       <!-- /.info-box-content -->
@@ -20,11 +33,11 @@
   <!-- /.col -->
   <div class="col-12 col-sm-6 col-md-3">
     <div class="info-box mb-3">
-      <span class="info-box-icon bg-info elevation-1"><i class="fas fa-map-marked-alt"></i></span>
+      <span class="info-box-icon bg-info elevation-1"><i class="fas fa-flag"></i></i></span>
 
       <div class="info-box-content">
-        <span class="info-box-text">Viagens</span>
-        <span class="info-box-number">41,410</span>
+        <span class="info-box-text">Metas alcançadas</span>
+        <span class="info-box-number">4</span>
       </div>
       <!-- /.info-box-content -->
     </div>
@@ -47,20 +60,6 @@
     </div>
     <!-- /.info-box -->
   </div>
-  <!-- /.col -->
-  <div class="col-12 col-sm-6 col-md-3">
-    <div class="info-box mb-3">
-      <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-comment-dots"></i></span>
-
-      <div class="info-box-content">
-        <span class="info-box-text">Solicitações</span>
-        <span class="info-box-number">2,000</span>
-      </div>
-      <!-- /.info-box-content -->
-    </div>
-    <!-- /.info-box -->
-  </div>
-  <!-- /.col -->
   </div>
   <!-- /.row -->
 
@@ -84,55 +83,14 @@
       <div class="card-body p-0">
         <div class="table-responsive">
           <table class="table m-0">
-            <thead>
-            <tr>
-              <th>Order ID</th>
-              <th>Item</th>
-              <th>Status</th>
-              <th>Popularity</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td><a href="pages/examples/invoice.html">OR9842</a></td>
-              <td>Call of Duty IV</td>
-              <td><span class="badge badge-success">Shipped</span></td>
-              <td>
-                <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
-              </td>
-            </tr>
-            <tr>
-              <td><a href="pages/examples/invoice.html">OR1848</a></td>
-              <td>Samsung Smart TV</td>
-              <td><span class="badge badge-warning">Pending</span></td>
-              <td>
-                <div class="sparkbar" data-color="#f39c12" data-height="20">90,80,-90,70,61,-83,68</div>
-              </td>
-            </tr>
-            <tr>
-              <td><a href="pages/examples/invoice.html">OR7429</a></td>
-              <td>iPhone 6 Plus</td>
-              <td><span class="badge badge-danger">Delivered</span></td>
-              <td>
-                <div class="sparkbar" data-color="#f56954" data-height="20">90,-80,90,70,-61,83,63</div>
-              </td>
-            </tr>
-            <tr>
-              <td><a href="pages/examples/invoice.html">OR7429</a></td>
-              <td>Samsung Smart TV</td>
-              <td><span class="badge badge-info">Processing</span></td>
-              <td>
-                <div class="sparkbar" data-color="#00c0ef" data-height="20">90,80,-90,70,-61,83,63</div>
-              </td>
-            </tr>
-            </tbody>
+            {% include "transactions/__tableContent.html" with context %}
           </table>
         </div>
         <!-- /.table-responsive -->
       </div>
       <!-- /.card-body -->
       <div class="card-footer clearfix">
-        <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right">
+        <a href="{{ url_for('webui.myTransactions') }}" class="btn btn-sm btn-secondary float-right">
           <h3 class="card-title"><i class="fas fa-eye mx-2"></i>Ver completo</h3>
         </a>
       </div>

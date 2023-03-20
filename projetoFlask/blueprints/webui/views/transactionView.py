@@ -2,7 +2,7 @@ from datetime import datetime
 from flask import render_template, request, redirect, url_for
 from projetoFlask.blueprints.webui.forms.TransactionForm import TransactionCreate
 from flask_login import login_required, current_user
-from projetoFlask.ext.database import Box as BoxModel, Transaction as TransactionModel, Balance as BalanceModel
+from projetoFlask.ext.database import Box as BoxModel, Transaction as TransactionModel
 from projetoFlask.blueprints.webui.utils.OPTransactionEnum import TransactionOperation
 from projetoFlask.ext.database import db
 from projetoFlask.blueprints.webui.services import flashMessagesService
@@ -17,7 +17,7 @@ def newTransaction(box_id):
     form = TransactionCreate(request.form)
     box = db.get_or_404(BoxModel, box_id)
     transaction = TransactionModel()
-    balance = BalanceModel.query.filter_by(user=current_user).first()
+    balance = current_user.balance
 
     if request.method == 'POST':
         try:

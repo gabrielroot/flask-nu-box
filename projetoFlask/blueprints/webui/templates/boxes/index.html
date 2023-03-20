@@ -20,13 +20,13 @@
               <th>Nome</th>
               <th>Descrição</th>
               <th>Guardado</th>
-              <th>Meta</th>
+              <th>Progresso</th>
               <th class="col-1"></th>
             </  thead>
             <tbody>
               {% for item in items %}
                 <tr>
-                  <td>{{item.id}}</td>
+                  <td><a href="{{url_for('webui.editBox', id=item.id)}}">{{item.id}}</td>
                   <td>{{item.name}}</td>
                   <td class="text-wrap col-4">{{item.description if item.description else "..."}}</td>
                   <td>{{"R$ {:,.2f}".format(item.value)}}</td>

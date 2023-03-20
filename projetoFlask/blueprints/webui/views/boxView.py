@@ -8,7 +8,7 @@ from projetoFlask.blueprints.webui.services import flashMessagesService
 
 @login_required
 def myBoxes():
-    boxes = BoxModel.query.filter_by(deleted=False).order_by(BoxModel.name)
+    boxes = BoxModel.query.filter_by(deleted=False, user=current_user).order_by(BoxModel.name)
     return render_template("boxes/index.html", items=boxes)
 
 @login_required

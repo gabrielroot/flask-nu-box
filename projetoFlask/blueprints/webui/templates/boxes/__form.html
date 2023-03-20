@@ -1,20 +1,42 @@
 <div class="card-body">
     <div class="form-group">
         {{ form.name.label(class="form-label text-capitalize") }}
-        {{ form.name(value=box.name if box.name else "", class="form-control") }}
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">
+                    <i class="fas fa-tag"></i>
+                </span>
+            </div>
+            {{ form.name(value=box.name if box.name else "", class="form-control") }}
+        </div>
     </div>
 
     <div class="row">
         {% if box.id %}
-            <div class="form-group col-6">
+            <div class="col-6">
                 {{ form.value.label(class="form-label text-capitalize") }}
-                {{ form.value(value=box.value, class="form-control text-gray") }}
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">R$</span>
+                    </div>
+                    {{ form.value(value=box.value, class="form-control text-gray") }}
+                </div>
             </div>
         {% endif %}
 
         <div class="form-group {{ 'col-6' if box.id else 'col-12' }}">
             {{ form.goal.label(class="form-label text-capitalize") }}
-            {{ form.goal(value=box.goal, class="form-control") }}
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="fas fa-flag"></i>
+                    </span>
+                </div>
+                {{ form.goal(value=box.goal, class="form-control") }}
+                <div class="input-group-append">
+                    <span class="input-group-text">,00</span>
+                </div>
+            </div>
         </div>
     </div>
 
