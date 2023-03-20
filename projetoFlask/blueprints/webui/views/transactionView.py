@@ -10,7 +10,7 @@ from projetoFlask.blueprints.webui.services import flashMessagesService
 
 @login_required
 def myTransactions():
-    transactions = TransactionModel.query.filter_by(deleted=False)
+    transactions = TransactionModel.query.filter_by(deleted=False).order_by(TransactionModel.createdAt.desc())
     return render_template("transactions/index.html", items=transactions, operation=TransactionOperation)
 
 def newTransaction(box_id):

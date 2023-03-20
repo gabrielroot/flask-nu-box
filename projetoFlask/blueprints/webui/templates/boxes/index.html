@@ -33,7 +33,7 @@
                   <td>
                     <span class="text-center">
                       {{"R$ {:,.2f}".format(item.value)}} / {{"{:,.2f}".format(item.goal)}}
-                      <div class="progress mb-3" style="border-radius: 10px;">
+                      <div class="progress" style="border-radius: 10px;">
                         <div class="progress-bar bg-success" role="progressbar" aria-valuenow="{{item.value}}" aria-valuemin="0" aria-valuemax="{{item.goal}}" style="width: {{item.value * 100 / item.goal}}%">
                           {{item.value * 100 / item.goal}}%
                         </div>

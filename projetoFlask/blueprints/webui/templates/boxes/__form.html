@@ -5,12 +5,14 @@
     </div>
 
     <div class="row">
-        <div class="form-group col-6">
-            {{ form.value.label(class="form-label text-capitalize") }}
-            {{ form.value(value=box.value, class="form-control text-gray") }}
-        </div>
+        {% if box.id %}
+            <div class="form-group col-6">
+                {{ form.value.label(class="form-label text-capitalize") }}
+                {{ form.value(value=box.value, class="form-control text-gray") }}
+            </div>
+        {% endif %}
 
-        <div class="form-group col-6">
+        <div class="form-group {{ 'col-6' if box.id else 'col-12' }}">
             {{ form.goal.label(class="form-label text-capitalize") }}
             {{ form.goal(value=box.goal, class="form-control") }}
         </div>
@@ -22,30 +24,31 @@
     </div>
 </div>
 
-<div class="card-footer pull-right d-flex justify-content-end">
-    <a 
-        href="{{ url_for('webui.myBoxes') }}" 
-        class="btn btn-block btn-secondary col-4 {% if not box.id %} mx-2 {% endif %}"
-        style="align-self: end; height: 38px;"
-    >
-        Voltar para caixinhas
-    </a>
-    {% if box.id %}
+<div class="card-footer pull-right">
+    <div class="d-flex justify-content-between">
+        <a 
+            href="{{ url_for('webui.myBoxes') }}" 
+            class="btn btn-block btn-secondary col-3"
+            style="align-self: end; height: 38px;"
+        >
+            Voltar para caixinhas
+        </a>
+        {% if box.id %}
+            <a class="btn btn-block col-3 btn-outline-info" href="{{url_for('webui.newTransaction', box_id=box.id)}}"><i class="nav-icon fas fa-random mr-2"></i>Resgatar/Guardar</a>
+        {% endif %}
         <div class="btn-group col-4" style="align-self: end; height: 38px;">
-            <button id="deposit" type="button" class="btn btn-block btn-outline-success">Depositar</button>
-            <button type="button" class="btn btn-outline-success dropdown-toggle" data-toggle="dropdown">
-                <span class="sr-only">Toggle Dropdown</span>
-            </button>
-            <div class="dropdown-menu" role="menu">
-                <button id="deposit2" class="dropdown-item">Depositar</button>
-                <button id="withdraw" class="dropdown-item" style="color: #ff5151">Sacar</button>
-            </div>
+            <button type="submit" class="btn btn-block btn-primary"><i class="fa fa-save mr-2"></i>Salvar</button>
+            {% if box.id %}
+                <a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                    <span class="sr-only">Toggle Dropdown</span>
+                </a>
+                <div class="dropdown-menu" role="menu">
+                    <button type="submit" class="dropdown-item"><i class="fa fa-save mr-2"></i>Salvar</button>
+                    <a href="{{url_for('webui.deleteBox', id=box.id)}}" class="dropdown-item" style="color: #ff5151"><i class="fa fa-trash mr-2"></i>Deletar</a>
+                </div>
+            {% endif %}
         </div>
-    {% endif %}
-    <button type="submit" class="btn btn-block btn-primary col-4 d-flex align-items-center justify-content-center">
-        <i class="fa fa-save mx-2"></i>
-        Salvar
-    </button>
+    </div>
 </div>
 
 <script>

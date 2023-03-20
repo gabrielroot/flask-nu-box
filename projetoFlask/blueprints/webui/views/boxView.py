@@ -1,16 +1,14 @@
-from datetime import datetime
 from flask import render_template, request, redirect, url_for
 from projetoFlask.blueprints.webui.forms.BoxForm import BoxCreate
-from projetoFlask.blueprints.webui.forms.TransactionForm import TransactionCreate
 from flask_login import login_required, current_user
-from projetoFlask.ext.database import Box as BoxModel, Transaction as TransactionModel
+from projetoFlask.ext.database import Box as BoxModel
 from projetoFlask.ext.database import db
 from projetoFlask.blueprints.webui.services import flashMessagesService
 
 
 @login_required
 def myBoxes():
-    boxes = BoxModel.query.filter_by(deleted=False)
+    boxes = BoxModel.query.filter_by(deleted=False).order_by(BoxModel.name)
     return render_template("boxes/index.html", items=boxes)
 
 @login_required
@@ -58,6 +56,10 @@ def editBox(id):
 def deleteBox(id):
     box = db.get_or_404(BoxModel, id)
       
+    if box.value > 0:
+        flashMessagesService.addErrorMessage("A caixinha contém saldo. Por isso, não pode ser deletada.")
+        return redirect(url_for('webui.myBoxes'))
+
     try:
         box.remove()
         flashMessagesService.addSuccessMessage("A caixinha foi deletada com sucesso!")
