@@ -10,11 +10,7 @@
     <div class="card card-outline card-primary">
       <div class="card-header text-center">
         <p class="h1"><b>Nu@</b>Box</p>
-        {% with messages = get_flashed_messages() %}
-          {% if messages %}
-            <div class="alert alert-danger" role="alert">{{ messages[0] }}</div>
-          {% endif %}
-        {% endwith %}
+        {% include 'flash_messages.html' %}
       </div>
       <div class="card-body">
         <p class="login-box-msg">Faça o login para iniciar sua sessão</p>
@@ -36,7 +32,7 @@
             <input type="password" name="password" class="form-control" placeholder="Senha">
           </div>
           <div class="row">
-            <div class="col-8">
+            <div class="col-6">
               <div class="icheck-primary">
                 <input type="checkbox" name="remember" id="remember">
                 <label for="remember">
@@ -45,16 +41,18 @@
               </div>
             </div>
             <!-- /.col -->
-            <div class="col-4">
+            <div class="col-6 mb-4">
               <button type="submit" class="btn btn-primary btn-block">Entrar</button>
             </div>
             <!-- /.col -->
           </div>
         </form>
 
-        <p class="mb-0">
-          <a href="{{ url_for('auth.signup') }}" class="text-center">Criar um novo usuário</a>
-        </p>
+        <div class="row text-center">
+          <p class="mb-0 col-12">
+            <a href="{{ url_for('auth.signup') }}" class="text-center">Criar um novo usuário</a>
+          </p>
+        </div>
       </div>
       <!-- /.card-body -->
     </div>

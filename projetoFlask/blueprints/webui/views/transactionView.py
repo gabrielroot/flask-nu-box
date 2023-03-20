@@ -1,21 +1,26 @@
 from datetime import datetime
-from flask import render_template, request, redirect, url_for
-from projetoFlask.blueprints.webui.forms.TransactionForm import TransactionCreate
 from flask_login import login_required, current_user
+from flask import render_template, request, redirect, url_for
+from projetoFlask.blueprints.webui.services import flashMessagesService
+from projetoFlask.blueprints.webui.repository.BoxRepository import BoxRepository
+from projetoFlask.blueprints.webui.forms.TransactionForm import TransactionCreate
 from projetoFlask.ext.database import Box as BoxModel, Transaction as TransactionModel
 from projetoFlask.blueprints.webui.utils.OPTransactionEnum import TransactionOperation
-from projetoFlask.ext.database import db
-from projetoFlask.blueprints.webui.services import flashMessagesService
-
+from projetoFlask.blueprints.webui.repository.TransactionRepository import TransactionRepository
 
 @login_required
 def myTransactions():
-    transactions = TransactionModel.query.filter_by(deleted=False).order_by(TransactionModel.createdAt.desc())
+    transactions = TransactionRepository.findMyActivesTransactions(current_user)
     return render_template("transactions/index.html", items=transactions, operation=TransactionOperation)
 
 def newTransaction(box_id):
     form = TransactionCreate(request.form)
-    box = db.get_or_404(BoxModel, box_id)
+    box = BoxRepository.findOneActiveBox(id=box_id, current_user=current_user)
+
+    if not box:
+        flashMessagesService.addWarningMessage("Não encontramos sua caixinha.")
+        return redirect(url_for('webui.myBoxes'))
+
     transaction = TransactionModel()
     balance = current_user.balance
 

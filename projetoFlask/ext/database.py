@@ -66,7 +66,7 @@ class Box(Base, SerializerMixin):
     goal = db.Column(db.Numeric())
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    movimentations = db.relationship('Transaction', backref='box', lazy=True)
+    transactions = db.relationship('Transaction', backref='box', lazy=True)
 
 
 class Transaction(Base, SerializerMixin):

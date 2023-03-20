@@ -9,13 +9,7 @@
     <div class="card card-outline card-primary">
       <div class="card-header text-center">
         <p class="h1"><b>Nu@</b>Box</p>
-        {% with messages = get_flashed_messages() %}
-          {% if messages %}
-              <div class="notification is-danger">
-                  {{ messages[0] }} Login at <a href="{{ url_for('auth.login') }}">login page</a>.
-              </div>
-          {% endif %}
-        {% endwith %}
+        {% include 'flash_messages.html' %}
       </div>
       <div class="card-body">
         <p class="login-box-msg">Criar um novo usuário</p>
@@ -38,14 +32,14 @@
           </div>
           <div class="row">
             <!-- /.col -->
-            <div class="col-4">
-              <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary btn-block mb-4">Cadastrar</button>
             </div>
             <!-- /.col -->
           </div>
         </form>
 
-        <a href="{{ url_for('auth.login') }}" class="text-center">Eu já tenho un cadastro!</a>
+        <div class="row text-center"> <a href="{{ url_for('auth.login') }}" class="col-12">Eu já tenho um cadastro!</a> </div>
       </div>
       <!-- /.form-box -->
     </div><!-- /.card -->

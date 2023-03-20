@@ -1,14 +1,14 @@
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, abort
 from projetoFlask.blueprints.webui.forms.BoxForm import BoxCreate
 from flask_login import login_required, current_user
 from projetoFlask.ext.database import Box as BoxModel
-from projetoFlask.ext.database import db
 from projetoFlask.blueprints.webui.services import flashMessagesService
+from projetoFlask.blueprints.webui.repository.BoxRepository import BoxRepository
 
 
 @login_required
 def myBoxes():
-    boxes = BoxModel.query.filter_by(deleted=False, user=current_user).order_by(BoxModel.name)
+    boxes = BoxRepository.findMyActivesBoxes(current_user)
     return render_template("boxes/index.html", items=boxes)
 
 @login_required
@@ -35,14 +35,17 @@ def newBox():
 
 def editBox(id):
     form = BoxCreate(request.form)
-    box = db.get_or_404(BoxModel, id)
-      
+    box = BoxRepository.findOneActiveBox(id=id, current_user=current_user)
+
+    if not box:
+        flashMessagesService.addWarningMessage("Não encontramos sua caixinha.")
+        return redirect(url_for('webui.myBoxes'))
+    
     if request.method == 'POST':
         try:
             box.name=form.name.data
             box.goal=form.goal.data
             box.description=form.description.data
-
             box.persist()
 
             flashMessagesService.addSuccessMessage("A caixinha foi editada com sucesso!")
@@ -54,8 +57,12 @@ def editBox(id):
 
 
 def deleteBox(id):
-    box = db.get_or_404(BoxModel, id)
-      
+    box = BoxRepository.findOneActiveBox(id=id, current_user=current_user)
+
+    if not box:
+        flashMessagesService.addWarningMessage("Não encontramos sua caixinha.")
+        return redirect(url_for('webui.myBoxes'))
+
     if box.value > 0:
         flashMessagesService.addErrorMessage("A caixinha contém saldo. Por isso, não pode ser deletada.")
         return redirect(url_for('webui.myBoxes'))

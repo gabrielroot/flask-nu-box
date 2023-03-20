@@ -24,7 +24,7 @@ def login_post():
     password = request.form.get('password')
     remember = True if request.form.get('remember') else False
 
-    user = User.query.filter_by(username=username).first()
+    user = User.query.filter_by(username=username, deleted=False).first()
 
     if not user or not check_password_hash(user.password, password):
         flashMessagesService.addErrorMessage('Nome de usuário ou senha inválidos.')
@@ -42,7 +42,7 @@ def signup_post():
     username = request.form.get('username')
     password = request.form.get('password')
 
-    user = User.query.filter_by(username=username).first() 
+    user = User.query.filter_by(username=username, deleted=False).first() 
 
     if user:
         flashMessagesService.addWarningMessage(f'Nome de usuário "{username}" não disponível.')
@@ -52,7 +52,7 @@ def signup_post():
     new_user = User(username=username, password=generate_password_hash(password, method='sha256'), balance=balance)
 
     new_user.persist()
-
+    flashMessagesService.addSuccessMessage(f'O usuário "{username}" foi criado com sucesso!')
     return redirect(url_for('auth.login'))
 
 
