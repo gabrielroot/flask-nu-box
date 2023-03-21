@@ -91,6 +91,7 @@
         </div>
         <!-- /.table-responsive -->
       </div>
+      <canvas id="deposit_withdraw" style="width:100%;max-width:700px"></canvas>
       <!-- /.card-body -->
       <div class="card-footer clearfix">
         <a href="{{ url_for('webui.myTransactions') }}" class="btn btn-sm btn-secondary float-right">
@@ -101,3 +102,28 @@
     </div>
     <!-- /.card -->
 {% endblock%}
+
+{% block scripts %}
+    <script>
+      var xValues = ["Resgate das caixinhas", "Depositos nas caixinhas"];
+      var yValues = [{{dashboard['sum_of_withdraws_from_boxes']}}, {{dashboard['sum_of_deposits_from_boxes']}}];
+      var barColors = ["#ffc107","#28a745"];
+
+      new Chart("deposit_withdraw", {
+        type: "pie",
+        data: {
+          labels: xValues,
+          datasets: [{
+            backgroundColor: barColors,
+            data: yValues
+          }]
+        },
+        options: {
+          title: {
+            display: true,
+            text: "Somatório entre depósitos e retiradas"
+          }
+        }
+      });
+    </script>
+{% endblock %}
