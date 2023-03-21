@@ -6,6 +6,7 @@ Aplicação Flask + arquitetura modelo
 
 ## Passos para inicializar a aplicação
 - Copie o arquivo `.env.sample` e o renomeie para `.env`
+- Copie o arquivo `settings.toml.sample` e o renomeie para `settings.toml`
 - Esteja na pasta do projeto e execute os seguintes comandos no terminal:
 - `docker-compose up --build`
 > Aguarde até o serviço `db` estar "ready to accept connections"

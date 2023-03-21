@@ -3,9 +3,9 @@
       <th>#</th>
       <th>Operação</th>
       <th>Valor</th>
+      <th>Dia e hora</th>
       <th>Origem <i class="fa fa-exchange-alt mx-2"></i> Destino</th>
       <th>Descrição</th>
-      <th>Dia e hora</th>
     </tr>
     </thead>
     <tbody>
@@ -20,45 +20,47 @@
             {% endif %}
           </td>
           <td class="text-nowrap">{{"R$ {:,.2f}".format(item.value)}}</td>
-          <td class="d-flex"> 
-            {% if item.box.id %}
-              <span class="badge bg-info">
-                <a href="#" class="text-white">
-                  <i class="fa fa-wallet mr-2"></i>
+          <td>{{item.date.strftime('%d/%m/%Y - %H:%M:%S')}}</td>
+          <td>
+            <div class="d-flex">   
+              {% if item.box.id %}
+                <span class="badge bg-info">
+                  <a href="#" class="text-white">
+                    <i class="fa fa-wallet mr-2"></i>
+                    Conta
+                  </a>
+                </span>
+                {% if item.operation == operation.DEPOSIT.name %}
+                  <i class="fa fa-long-arrow-alt-right mx-2 text-success"></i>
+                {% else %}
+                  <i class="fa fa-long-arrow-alt-left mx-2 text-warning"></i>
+                {% endif %}
+                <span class="badge bg-secondary" data-toggle="tooltip" data-placement="right" title="{{item.box.name ~ ' - R$ {:,.2f}'.format(item.box.value)}}">
+                  <a 
+                    href="{{url_for('webui.editBox', id=item.box.id)}}" 
+                    class="text-white" 
+                  >
+                    <i class="fa fa-box mr-2"></i>
+                    Caixinha
+                  </a>
+                </span>
+              {% elif item.balance.id %}
+                <span class="badge bg-success" data-toggle="tooltip" data-placement="right" title="Movimentação em conta">
+                  <i class="fas fa-hand-holding-usd px-3"></i>
+                </span>
+                {% if item.operation == operation.DEPOSIT.name %}
+                  <i class="fa fa-long-arrow-alt-right mx-2 text-success"></i>
+                {% else %}
+                  <i class="fa fa-long-arrow-alt-left mx-2 text-warning"></i>
+                {% endif %}
+                <span class="badge bg-info" data-toggle="tooltip" data-placement="right" title="Movimentação em conta">
+                  <i class="fas fa-wallet"></i>
                   Conta
-                </a>
-              </span>
-              {% if item.operation == operation.DEPOSIT.name %}
-                <i class="fa fa-long-arrow-alt-right mx-2 text-success"></i>
-              {% else %}
-                <i class="fa fa-long-arrow-alt-left mx-2 text-warning"></i>
-              {% endif %}
-              <span class="badge bg-secondary" data-toggle="tooltip" data-placement="right" title="{{item.box.name ~ ' - R$ {:,.2f}'.format(item.box.value)}}">
-                <a 
-                  href="{{url_for('webui.editBox', id=item.box.id)}}" 
-                  class="text-white" 
-                >
-                  <i class="fa fa-box mr-2"></i>
-                  Caixinha
-                </a>
-              </span>
-            {% elif item.balance.id %}
-              <span class="badge bg-success" data-toggle="tooltip" data-placement="right" title="Movimentação em conta">
-                <i class="fas fa-hand-holding-usd px-3"></i>
-              </span>
-              {% if item.operation == operation.DEPOSIT.name %}
-                <i class="fa fa-long-arrow-alt-right mx-2 text-success"></i>
-              {% else %}
-                <i class="fa fa-long-arrow-alt-left mx-2 text-warning"></i>
-              {% endif %}
-              <span class="badge bg-info" data-toggle="tooltip" data-placement="right" title="Movimentação em conta">
-                <i class="fas fa-wallet"></i>
-                Conta
-              </span>
-            {% endif%}
+                </span>
+              {% endif%}
+            </div>
           </td>
           <td>{{item.description if item.description else '...'}}</td>
-          <td>{{item.date.strftime('%d/%m/%Y - %H:%M:%S')}}</td>
         </tr>
         <tr>
       {% endfor %}
