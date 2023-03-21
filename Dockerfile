@@ -16,4 +16,11 @@ ENV FLASK_RUN_PORT=8000
 ENV FLASK_APP=projetoFlask/app.py
 ENV FLASK_DEBUG=1
 
+# Set the locale to money currency formatation
+RUN apt-get -y update && apt-get -y install locales locales-all
+ENV LANG pt_BR.UTF-8  
+ENV LANGUAGE pt_BR:en  
+ENV LC_ALL pt_BR.UTF-8     
+
+
 CMD [ "python", "-m", "flask", "run", "--host=0.0.0.0"]

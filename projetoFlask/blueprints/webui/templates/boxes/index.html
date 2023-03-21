@@ -29,10 +29,10 @@
                   <td><a href="{{url_for('webui.editBox', id=item.id)}}">{{item.id}}</td>
                   <td>{{item.name}}</td>
                   <td class="text-wrap col-4">{{item.description if item.description else "..."}}</td>
-                  <td>{{"R$ {:,.2f}".format(item.value)}}</td>
+                  <td>{{item.value|format_money()}}</td>
                   <td>
                     <span class="text-center">
-                      {{"R$ {:,.2f}".format(item.value)}} / {{"{:,.2f}".format(item.goal)}}
+                      {{item.value|format_money()}} / {{"{:,.2f}".format(item.goal)}}
                       <div class="progress" style="border-radius: 10px;">
                         <div class="progress-bar bg-success" role="progressbar" aria-valuenow="{{item.value}}" aria-valuemin="0" aria-valuemax="{{item.goal}}" style="width: {{item.value * 100 / item.goal}}%">
                           {{item.value * 100 / item.goal}}%
