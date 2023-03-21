@@ -48,7 +48,7 @@ def signup_post():
         flashMessagesService.addWarningMessage(f'Nome de usuário "{username}" não disponível.')
         return redirect(url_for('auth.signup'))
 
-    balance = Balance(total=1000)
+    balance = Balance(total=10)
     new_user = User(username=username, password=generate_password_hash(password, method='sha256'), balance=balance)
 
     new_user.persist()

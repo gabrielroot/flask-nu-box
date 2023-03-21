@@ -52,7 +52,7 @@ def newTransaction(box_id):
             box.persist()
 
             flashMessagesService.addSuccessMessage("A caixinha foi movimentada com sucesso!")
-            return redirect(url_for('webui.myTransactions', box_id=box.id))
+            return redirect(url_for('webui.myTransactions'))
         except:
             flashMessagesService.addErrorMessage("Ocorreu um erro ao tentar movimentar a caixinha.")
           
