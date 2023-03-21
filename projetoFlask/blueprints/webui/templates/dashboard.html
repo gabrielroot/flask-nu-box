@@ -9,7 +9,7 @@
       <div class="info-box-content">
         <span class="info-box-text">Saldo total</span>
         <span class="info-box-number">
-          R$ 1.200,00
+          {{"R$ {:,.2f}".format(dashboard['all_summation'])}}
         </span>
       </div>
       <!-- /.info-box-content -->
@@ -23,7 +23,7 @@
       <div class="info-box-content">
         <span class="info-box-text">Saldo nas caixinhas</span>
         <span class="info-box-number">
-          R$ 1.200,00
+          {{"R$ {:,.2f}".format(dashboard['total_in_boxes'])}}
         </span>
       </div>
       <!-- /.info-box-content -->
@@ -37,7 +37,7 @@
 
       <div class="info-box-content">
         <span class="info-box-text">Metas alcançadas</span>
-        <span class="info-box-number">4</span>
+        <span class="info-box-number">{{dashboard['count_all_goal_boxes']}}</span>
       </div>
       <!-- /.info-box-content -->
     </div>
@@ -53,8 +53,11 @@
       <span class="info-box-icon bg-info elevation-1"><i class="fas fa-users"></i></span>
 
       <div class="info-box-content">
-        <span class="info-box-text">Usuários</span>
-        <span class="info-box-number">760</span>
+        <span class="info-box-text">Depósitos/Resgates das caixinhas</span>
+        <span class="info-box-number d-flex text-nowrap">
+          <span class="mr-2"><i class="fas fa-arrow-down text-red"></i>{{"R$ {:,.2f}".format(dashboard['sum_of_withdraws_from_boxes'])}}</span>
+          <span><i class="fas fa-arrow-up text-success"></i>{{"R$ {:,.2f}".format(dashboard['sum_of_deposits_from_boxes'])}}</span>
+        </span>
       </div>
       <!-- /.info-box-content -->
     </div>
