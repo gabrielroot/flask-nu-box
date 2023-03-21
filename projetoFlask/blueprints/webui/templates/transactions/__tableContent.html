@@ -19,8 +19,8 @@
               <span class="badge bg-warning">{{operation.WITHDRAW.value}}</span>
             {% endif %}
           </td>
-          <td class="text-nowrap">{{"R$ {:,.2f}".format(item.value)}}</td>
-          <td>{{item.date.strftime('%d/%m/%Y - %H:%M:%S')}}</td>
+          <td class="text-nowrap">{{item.value|format_money()}}</td>
+          <td>{{item.date|format_datetime('%d/%m/%Y - %H:%M:%S')}}</td>
           <td>
             <div class="d-flex">   
               {% if item.box.id %}

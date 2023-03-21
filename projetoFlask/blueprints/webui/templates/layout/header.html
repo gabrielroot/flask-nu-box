@@ -15,7 +15,7 @@
       <li class="nav-item">
         <a class="nav-link" href="{{url_for('webui.profile')}}">
           <i class="fa fa-wallet mr-1"></i>
-          {{ "R$ {:,.2f}".format(current_user.balance.total)}}
+          {{current_user.balance.total|format_money()}}
         </a>  
       </li>
       <!-- Notifications Dropdown Menu -->
