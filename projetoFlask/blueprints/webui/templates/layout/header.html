@@ -8,43 +8,34 @@
       <li class="nav-item d-none d-sm-inline-block">
         <a href="{{ url_for('webui.index') }}" class="nav-link">Home</a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a class="nav-link" href="https://www.linkedin.com/in/gabriel-root/">Gabriel Santos</a>
-      </li>
     </ul>
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
-        <a class="nav-link" href="#">
-          <i class="fa fa-wallet"></i>
+        <a class="nav-link" href="{{url_for('webui.profile')}}">
+          <i class="fa fa-wallet mr-1"></i>
           {{ "R$ {:,.2f}".format(current_user.balance.total)}}
         </a>  
       </li>
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="far fa-bell"></i>
+        <a class="nav-link" data-toggle="dropdown" href="{{url_for('webui.profile')}}">
+          <i class="fas fa-user"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">15 Notifications</span>
+          <p class="dropdown-footer"><b>Minha conta</b></p>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-envelope mr-2"></i> 4 new messages
-            <span class="float-right text-muted text-sm">3 mins</span>
+          <a href="{{url_for('webui.profile')}}" class="dropdown-item">
+            <i class="fa fa-exchange-alt mx-2"></i> Transacionar valores
           </a>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-users mr-2"></i> 8 friend requests
-            <span class="float-right text-muted text-sm">12 hours</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-file mr-2"></i> 3 new reports
-            <span class="float-right text-muted text-sm">2 days</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+          <div class="info dropdown-item dropdown-footer">
+            <a href="/auth/logout" class="d-block text-red m-r-4">
+              <i class="mr-lg-2 fas fa-sign-out-alt"></i>
+              Sair
+            </a>
+          </div>
         </div>
       </li>
       <li class="nav-item">

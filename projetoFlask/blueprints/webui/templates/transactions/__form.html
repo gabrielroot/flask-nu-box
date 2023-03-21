@@ -5,7 +5,7 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">R$</span>
             </div>
-            {{ form.value(value=transaction.value if box.value else "", class="form-control") }}
+            {{ form.value(value=transaction.value, class="form-control") }}
             <div class="input-group-append">
                 <span class="input-group-text">,00</span>
             </div>

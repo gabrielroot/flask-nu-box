@@ -8,10 +8,8 @@
             <div class="card-header">
                 <h3 class="card-title">Editar caixinha #{{ box.id }}</h3>
             </div>
-        
-            {{ form.csrf_token }}
-
             <form method="POST" action="{{ url_for('webui.editBox', id=box.id) }}">
+                {{ form.csrf_token }}
                 {% include "boxes/__form.html" with context %}
             </form>
         </div>

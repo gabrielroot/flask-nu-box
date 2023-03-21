@@ -16,3 +16,4 @@ bp.add_url_rule('/my-transactions', view_func=myTransactions, methods=['GET'])
 bp.add_url_rule('/my-boxes/<int:box_id>/deposit-withdraw', view_func=newTransaction, methods=['GET', 'POST'])
 
 bp.add_url_rule('/profile', view_func=profile)
+bp.add_url_rule('/profile/deposit-withdraw', view_func=newBalanceTransaction, methods=['GET', 'POST'])
