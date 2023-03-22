@@ -7,7 +7,7 @@ from projetoFlask.blueprints.webui.repository.BalanceRepository import BalanceRe
 
 @login_required
 def index():
-    transactions = TransactionRepository.findMyActivesTransactions(current_user).limit(3)
+    pagination = TransactionRepository.findMyActivesTransactions(current_user).paginate(page=1, per_page=3)
     
     count_transactions_in_boxes_by_week_day = TransactionRepository.countTransactionsInBoxesByWeekDay(current_user=current_user)
     sum_of_deposits_from_boxes = TransactionRepository.sumOfWithdrawsOrDepositsFromBoxes(current_user, TransactionOperation.DEPOSIT.name)
@@ -25,4 +25,4 @@ def index():
         count_transactions_in_boxes_by_week_day = count_transactions_in_boxes_by_week_day
     )
     
-    return render_template("dashboard.html", items=transactions, operation=TransactionOperation, dashboard=dashboard)
+    return render_template("dashboard.html", pagination=pagination, operation=TransactionOperation, dashboard=dashboard)

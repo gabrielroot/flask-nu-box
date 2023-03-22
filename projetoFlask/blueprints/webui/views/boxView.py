@@ -8,8 +8,10 @@ from projetoFlask.blueprints.webui.repository.BoxRepository import BoxRepository
 
 @login_required
 def myBoxes():
-    boxes = BoxRepository.findMyActivesBoxes(current_user)
-    return render_template("boxes/index.html", items=boxes)
+    page = request.args.get('page', 1, type=int)
+    pagination = BoxRepository.findMyActivesBoxes(current_user).paginate(page=page, per_page=10, error_out=False)
+
+    return render_template("boxes/index.html", pagination=pagination)
 
 @login_required
 def newBox():

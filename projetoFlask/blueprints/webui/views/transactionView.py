@@ -1,6 +1,6 @@
 from datetime import datetime
 from flask_login import login_required, current_user
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, abort
 from projetoFlask.ext.database import Transaction as TransactionModel
 from projetoFlask.blueprints.webui.services import flashMessagesService
 from projetoFlask.blueprints.webui.repository.BoxRepository import BoxRepository
@@ -10,8 +10,9 @@ from projetoFlask.blueprints.webui.repository.TransactionRepository import Trans
 
 @login_required
 def myTransactions():
-    transactions = TransactionRepository.findMyActivesTransactions(current_user)
-    return render_template("transactions/index.html", items=transactions, operation=TransactionOperation)
+    page = request.args.get('page', 1, type=int)
+    pagination = TransactionRepository.findMyActivesTransactions(current_user).paginate(page=page, per_page=10, error_out=False)
+    return render_template("transactions/index.html", pagination=pagination, operation=TransactionOperation)
 
 def newTransaction(box_id):
     form = TransactionCreate(request.form)

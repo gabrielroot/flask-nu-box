@@ -2,7 +2,7 @@
 
 {% block header_title %}Minhas Caixinhas{% endblock %}
 {% block content %}
-  <div class="col-12 card card-primary flex-wrap align-content-center p-md-4" style="min-height: 70vh">
+  <div class="col-12 card flex-wrap align-content-center p-md-4" style="min-height: 70vh">
     <div class="card col-12">
       <div class="card-header">
         <div class="card-tools">
@@ -24,7 +24,7 @@
               <th class="col-1"></th>
             </  thead>
             <tbody>
-              {% for item in items %}
+              {% for item in pagination.items %}
                 <tr>
                   <td><a href="{{url_for('webui.editBox', id=item.id)}}">{{item.id}}</td>
                   <td>{{item.name}}</td>
@@ -57,6 +57,10 @@
               {% endfor %}
             </tbody>
         </table>
+      </div>
+      <div class="card-footer">
+        {% set url_name='webui.myBoxes' %}
+        {% include "layout/pagination.html" %}
       </div>
     </div>
   </div>
