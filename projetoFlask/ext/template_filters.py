@@ -10,4 +10,4 @@ def init_app(app):
     @app.template_filter()
     def format_money(value, toLocale=app.config.LOCALE):
         locale.setlocale(locale.LC_ALL, toLocale)
-        return locale.currency(value)
+        return locale.currency(value if value else 0)

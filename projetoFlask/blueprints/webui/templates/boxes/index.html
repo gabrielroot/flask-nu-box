@@ -32,10 +32,10 @@
                   <td>{{item.value|format_money()}}</td>
                   <td>
                     <span class="text-center">
-                      {{item.value|format_money()}} / {{"{:,.2f}".format(item.goal)}}
+                      {{item.value|format_money()}} / {{item.goal|format_money()}}
                       <div class="progress" style="border-radius: 10px;">
                         <div class="progress-bar bg-success" role="progressbar" aria-valuenow="{{item.value}}" aria-valuemin="0" aria-valuemax="{{item.goal}}" style="width: {{item.value * 100 / item.goal}}%">
-                          {{item.value * 100 / item.goal}}%
+                          {{(item.value * 100 / item.goal)|format_money()}}%
                         </div>
                       </div>
                     </span>

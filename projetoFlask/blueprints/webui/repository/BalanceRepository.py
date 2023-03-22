@@ -12,4 +12,7 @@ class BalanceRepository:
             filter(BalanceModel.user == current_user, BalanceModel.deleted == False).\
             scalar()
 
+        in_boxes = in_boxes if in_boxes else 0
+        in_balances = in_balances if in_balances else 0
+
         return in_boxes + in_balances

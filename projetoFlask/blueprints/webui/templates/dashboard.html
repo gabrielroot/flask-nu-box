@@ -68,9 +68,23 @@
 
   <!-- Main row -->
   <div class="row">
+  <div class="row col-md-12 mb-3">
+    <div class="col-md-6 col-sm-12 d-flex flex-column flex-wrap align-content-center">
+      <p class="mb-1 pl-1 border-left">
+        Transações nas caixinhas por dia da semana 
+        <span class="badge badge-info">
+          {{dashboard['count_transactions_in_boxes_by_week_day'][operation.DEPOSIT.name]|sum() + dashboard['count_transactions_in_boxes_by_week_day'][operation.WITHDRAW.name]|sum()}}
+        <span>
+      </p>
+      <canvas id="deposit_withdraw" style="width:100%;max-width:700px;background: #24153e;"></canvas>
+    </div>
+    <div class="col-md-6 col-sm-12 d-flex flex-column flex-wrap align-content-center">
+      <p class="mb-1 pl-1 border-left">Depósitos/resgates das caixinhas - Em pizza</p>
+      <canvas id="deposit_withdrawPie" style="width:100%;max-width:700px;background: #24153e;"></canvas>
+    </div>
+  </div>  
   <!-- Left col -->
   <div class="col-md-12">
-
     <!-- TABLE: LATEST ORDERS -->
     <div class="card">
       <div class="card-header border-transparent">
@@ -91,7 +105,6 @@
         </div>
         <!-- /.table-responsive -->
       </div>
-      <canvas id="deposit_withdraw" style="width:100%;max-width:700px"></canvas>
       <!-- /.card-body -->
       <div class="card-footer clearfix">
         <a href="{{ url_for('webui.myTransactions') }}" class="btn btn-sm btn-secondary float-right">
@@ -105,25 +118,76 @@
 
 {% block scripts %}
     <script>
-      var xValues = ["Resgate das caixinhas", "Depositos nas caixinhas"];
-      var yValues = [{{dashboard['sum_of_withdraws_from_boxes']}}, {{dashboard['sum_of_deposits_from_boxes']}}];
-      var barColors = ["#ffc107","#28a745"];
+      const labels = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
+      const deposits = {{dashboard['count_transactions_in_boxes_by_week_day'][operation.DEPOSIT.name]}}
+      const withdraws = {{dashboard['count_transactions_in_boxes_by_week_day'][operation.WITHDRAW.name]}}
 
-      new Chart("deposit_withdraw", {
-        type: "pie",
-        data: {
-          labels: xValues,
-          datasets: [{
-            backgroundColor: barColors,
-            data: yValues
-          }]
-        },
-        options: {
-          title: {
-            display: true,
-            text: "Somatório entre depósitos e retiradas"
+      const data = {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Resgates',
+            data: withdraws,
+            borderColor: '#af891b',
+            backgroundColor: '#e7c96e',
+          },
+          {
+            label: 'Depósitos',
+            data: deposits,
+            borderColor: '#28a745',
+            backgroundColor: '#62f181',
           }
-        }
-      });
+        ]
+      };
+
+      const config = {
+        type: 'line',
+        data: data,
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'top',
+            },
+            title: {
+              display: true,
+              text: 'Transações nas caixinhas por dia da semana'
+            }
+          }
+        },
+      };
+      new Chart("deposit_withdraw", config);
+
+      const sum_of_withdraws = {{dashboard['sum_of_withdraws_from_boxes'] if dashboard['sum_of_withdraws_from_boxes'] else 0}}
+      const sum_of_deposits = {{dashboard['sum_of_deposits_from_boxes'] if dashboard['sum_of_deposits_from_boxes'] else 0}}
+
+      const dataPie = {
+        labels: ['Resgates R$', 'Depósitos R$'],
+        datasets: [
+          {
+            data: [sum_of_withdraws, sum_of_deposits],
+            borderColor: ['#c96e', '#621'],
+            backgroundColor: ['#e7c96e', '#62f181']
+          }
+        ]
+      };
+
+      const configPie = {
+        type: 'pie',
+        data: dataPie,
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'top',
+            },
+            title: {
+              display: true,
+              text: 'Depósitos/resgates das caixinhas - Em pizza'
+            }
+          }
+        },
+      };
+      new Chart("deposit_withdrawPie", configPie);
     </script>
 {% endblock %}
