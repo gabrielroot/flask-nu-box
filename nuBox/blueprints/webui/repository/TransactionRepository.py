@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 from sqlalchemy import extract
-from projetoFlask.blueprints.webui.utils.OPTransactionEnum import TransactionOperation
-from projetoFlask.ext.database import db, Box as BoxModel, Transaction as TransactionModel, Balance as BalanceModel
+from nuBox.blueprints.webui.utils.OPTransactionEnum import TransactionOperation
+from nuBox.ext.database import db, Box as BoxModel, Transaction as TransactionModel, Balance as BalanceModel
 
 class TransactionRepository:
     @staticmethod

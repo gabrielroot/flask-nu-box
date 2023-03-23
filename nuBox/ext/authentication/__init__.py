@@ -1,4 +1,4 @@
-from projetoFlask.ext.database import User
+from nuBox.ext.database import User
 from flask_login import LoginManager
 
 from .urls import bpAuth

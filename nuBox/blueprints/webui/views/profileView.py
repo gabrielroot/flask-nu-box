@@ -1,7 +1,7 @@
 from flask import render_template, request
 from flask_login import login_required
-from projetoFlask.ext.database import Transaction as TransactionModel
-from projetoFlask.blueprints.webui.forms.TransactionForm import TransactionCreate
+from nuBox.ext.database import Transaction as TransactionModel
+from nuBox.blueprints.webui.forms.TransactionForm import TransactionCreate
 
 @login_required
 def profile():

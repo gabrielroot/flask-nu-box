@@ -1,9 +1,9 @@
 from flask import render_template
 from flask_login import login_required, current_user
-from projetoFlask.blueprints.webui.utils.OPTransactionEnum import TransactionOperation
-from projetoFlask.blueprints.webui.repository.TransactionRepository import TransactionRepository
-from projetoFlask.blueprints.webui.repository.BoxRepository import BoxRepository
-from projetoFlask.blueprints.webui.repository.BalanceRepository import BalanceRepository
+from nuBox.blueprints.webui.utils.OPTransactionEnum import TransactionOperation
+from nuBox.blueprints.webui.repository.TransactionRepository import TransactionRepository
+from nuBox.blueprints.webui.repository.BoxRepository import BoxRepository
+from nuBox.blueprints.webui.repository.BalanceRepository import BalanceRepository
 
 @login_required
 def index():

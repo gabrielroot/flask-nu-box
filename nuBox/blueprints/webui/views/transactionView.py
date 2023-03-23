@@ -1,12 +1,12 @@
 from datetime import datetime
 from flask_login import login_required, current_user
 from flask import render_template, request, redirect, url_for, abort
-from projetoFlask.ext.database import Transaction as TransactionModel
-from projetoFlask.blueprints.webui.services import flashMessagesService
-from projetoFlask.blueprints.webui.repository.BoxRepository import BoxRepository
-from projetoFlask.blueprints.webui.forms.TransactionForm import TransactionCreate
-from projetoFlask.blueprints.webui.utils.OPTransactionEnum import TransactionOperation
-from projetoFlask.blueprints.webui.repository.TransactionRepository import TransactionRepository
+from nuBox.ext.database import Transaction as TransactionModel
+from nuBox.blueprints.webui.services import flashMessagesService
+from nuBox.blueprints.webui.repository.BoxRepository import BoxRepository
+from nuBox.blueprints.webui.forms.TransactionForm import TransactionCreate
+from nuBox.blueprints.webui.utils.OPTransactionEnum import TransactionOperation
+from nuBox.blueprints.webui.repository.TransactionRepository import TransactionRepository
 
 @login_required
 def myTransactions():

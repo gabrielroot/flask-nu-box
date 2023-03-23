@@ -1,7 +1,7 @@
 from flask_wtf import Form
 from wtforms import RadioField, IntegerField, HiddenField, TextAreaField
 from wtforms.validators import DataRequired
-from projetoFlask.blueprints.webui.utils.OPTransactionEnum import TransactionOperation
+from nuBox.blueprints.webui.utils.OPTransactionEnum import TransactionOperation
 
 class TransactionCreate(Form):
   id = HiddenField()

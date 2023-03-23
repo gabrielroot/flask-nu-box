@@ -13,7 +13,7 @@ RUN useradd -u 1000 -ms /bin/bash -g app_user app_user
 RUN pip install -r requirements.txt
 
 ENV FLASK_RUN_PORT=8000
-ENV FLASK_APP=projetoFlask/app.py
+ENV FLASK_APP=nuBox/app.py
 ENV FLASK_DEBUG=1
 
 # Set the locale to money currency formatation
