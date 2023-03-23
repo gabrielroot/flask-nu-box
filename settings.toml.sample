@@ -10,14 +10,14 @@ TIMEZONE = "America/Sao_Paulo"
 SECRET_KEY = "jadkfbsdkjbfbh"
 PASSWORD_SCHEMES = ['pbkdf2_sha512', 'md5_crypt']
 EXTENSIONS = [
-    "projetoFlask.ext.appearance:init_app",
-    "projetoFlask.ext.database:init_app",
-    "projetoFlask.ext.migrations:init_app",
-    "projetoFlask.ext.authentication:init_app",
-    "projetoFlask.ext.commands:init_app",
-    "projetoFlask.ext.template_filters:init_app",
-    "projetoFlask.blueprints.webui:init_app",
-    "projetoFlask.blueprints.restapi:init_app",
+    "nuBox.ext.appearance:init_app",
+    "nuBox.ext.database:init_app",
+    "nuBox.ext.migrations:init_app",
+    "nuBox.ext.authentication:init_app",
+    "nuBox.ext.commands:init_app",
+    "nuBox.ext.template_filters:init_app",
+    "nuBox.blueprints.webui:init_app",
+    "nuBox.blueprints.restapi:init_app",
 ]
 
 

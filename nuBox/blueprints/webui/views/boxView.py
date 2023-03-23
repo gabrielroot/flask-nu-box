@@ -1,9 +1,9 @@
 from flask import render_template, request, redirect, url_for, abort
-from projetoFlask.blueprints.webui.forms.BoxForm import BoxCreate
+from nuBox.blueprints.webui.forms.BoxForm import BoxCreate
 from flask_login import login_required, current_user
-from projetoFlask.ext.database import Box as BoxModel
-from projetoFlask.blueprints.webui.services import flashMessagesService
-from projetoFlask.blueprints.webui.repository.BoxRepository import BoxRepository
+from nuBox.ext.database import Box as BoxModel
+from nuBox.blueprints.webui.services import flashMessagesService
+from nuBox.blueprints.webui.repository.BoxRepository import BoxRepository
 
 
 @login_required

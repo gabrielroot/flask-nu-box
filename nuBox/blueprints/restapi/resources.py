@@ -1,6 +1,6 @@
 from flask import jsonify, abort
 from flask_restful import Resource
-from projetoFlask.ext.database import User
+from nuBox.ext.database import User
 
 class ProductResource(Resource):
     def get(self):

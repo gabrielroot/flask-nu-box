@@ -1,8 +1,8 @@
-from projetoFlask.ext.database import User, Balance
+from nuBox.ext.database import User, Balance
 from flask_login import login_user, login_required, logout_user
 from flask import render_template, redirect, url_for, request, flash
 from werkzeug.security import check_password_hash, generate_password_hash
-from projetoFlask.blueprints.webui.services import flashMessagesService
+from nuBox.blueprints.webui.services import flashMessagesService
 
 
 def create_user(username, password):

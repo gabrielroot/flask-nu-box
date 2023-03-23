@@ -1,5 +1,5 @@
-from projetoFlask.ext.database import db
-from projetoFlask.ext.database import Box as BoxModel, Balance as BalanceModel, Transaction as TransactionModel
+from nuBox.ext.database import db
+from nuBox.ext.database import Box as BoxModel, Balance as BalanceModel, Transaction as TransactionModel
 
 class BalanceRepository:  
     @staticmethod

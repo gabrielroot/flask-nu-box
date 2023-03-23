@@ -1,6 +1,6 @@
 from flask import Flask
 
-from projetoFlask.ext import configuration
+from nuBox.ext import configuration
 
 
 def minimal_app(**config):

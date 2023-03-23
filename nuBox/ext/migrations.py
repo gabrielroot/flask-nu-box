@@ -1,5 +1,5 @@
 from flask_migrate import Migrate
-from projetoFlask.ext.database import db
+from nuBox.ext.database import db
 
 
 def init_app(app):
