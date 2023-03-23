@@ -14,107 +14,6 @@ Quando me foi solicitado como trabalho avaliativo da disciplina "Arquitetura de 
 <br>
 A arquitetura base utilizada foi a do @rochacbruno, do canal codeshow. Tem como característica o uso dos padrões 'Factory Method + Singleton' na instanciação do app Flask. Com o adicional do uso de extensões, como forma diminuir o acoplamento do projeto. 
 
-
-<br>
-
-## Estrutura
-
-<br>
-
-```
-├── docker-compose.yml
-├── Dockerfile
-├── LICENSE
-├── migrations
-│   ├── alembic.ini
-│   ├── env.py
-│   ├── README
-│   ├── script.py.mako
-│   └── versions
-│       ├── 00a17e17cbad_added_a_trait_to_work_with_soft_delete.py
-│       ├── 98a6678d52ee_added_balances_table.py
-│       └── edf73edcf51e_inital_migration.py
-├── nuBox
-│   ├── app.py
-│   ├── blueprints
-│   │   ├── __init__.py
-│   │   ├── restapi
-│   │   │   ├── __init__.py
-│   │   │   └── resources.py
-│   │   └── webui
-│   │       ├── forms
-│   │       │   ├── BoxForm.py
-│   │       │   ├── __init__.py
-│   │       │   └── TransactionForm.py
-│   │       ├── __init__.py
-│   │       ├── repository
-│   │       │   ├── BalanceRepository.py
-│   │       │   ├── BoxRepository.py
-│   │       │   └── TransactionRepository.py
-│   │       ├── services
-│   │       │   ├── flashMessagesService.py
-│   │       │   └── __init__.py
-│   │       ├── static
-│   │       │   └── images
-│   │       │       └── UserRoot.ico
-│   │       ├── templates
-│   │       │   ├── boxes
-│   │       │   │   ├── edit.html
-│   │       │   │   ├── formActions.html
-│   │       │   │   ├── __form.html
-│   │       │   │   ├── index.html
-│   │       │   │   └── new.html
-│   │       │   ├── dashboard.html
-│   │       │   ├── layout
-│   │       │   │   ├── aside.html
-│   │       │   │   ├── base.html
-│   │       │   │   ├── flash_messages.html
-│   │       │   │   ├── footer.html
-│   │       │   │   ├── header.html
-│   │       │   │   └── pagination.html
-│   │       │   ├── transactions
-│   │       │   │   ├── depositWithdraw.html
-│   │       │   │   ├── __form.html
-│   │       │   │   ├── index.html
-│   │       │   │   └── __tableContent.html
-│   │       │   └── user
-│   │       │       └── profile.html
-│   │       ├── urls.py
-│   │       ├── utils
-│   │       │   └── OPTransactionEnum.py
-│   │       └── views
-│   │           ├── boxView.py
-│   │           ├── indexView.py
-│   │           ├── __init__.py
-│   │           ├── profileView.py
-│   │           └── transactionView.py
-│   ├── ext
-│   │   ├── admin.py
-│   │   ├── appearance.py
-│   │   ├── authentication
-│   │   │   ├── __init__.py
-│   │   │   ├── templates
-│   │   │   │   ├── base.html
-│   │   │   │   ├── flash_messages.html
-│   │   │   │   ├── login.html
-│   │   │   │   └── signup.html
-│   │   │   ├── urls.py
-│   │   │   └── views
-│   │   │       ├── authView.py
-│   │   │       └── __init__.py
-│   │   ├── commands.py
-│   │   ├── configuration.py
-│   │   ├── database.py
-│   │   ├── __init__.py
-│   │   ├── migrations.py
-│   │   └── template_filters.py
-│   └── __init__.py
-├── README.md
-├── requirements.txt
-├── settings.toml
-└── settings.toml.sample
-```
-
 <br>
 
 ## Passos para inicializar a aplicação
@@ -131,9 +30,7 @@ Agora basta acessar a aplicação através do navegador pelo endereço http://12
 <br>
 E caso necessite, o Adminer em http://127.0.0.1:8080
 
-<br>
 <hr>
-<br>
 
 ## Manipulando novas Migrations
 
