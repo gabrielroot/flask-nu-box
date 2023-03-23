@@ -87,11 +87,8 @@
         <!-- ChartJS -->
         <script src={{ url_for('webui.static', filename="plugins/chart.js/Chart.min.js") }}></script>
 
-        <script>
-            $(function () {
-                $('[data-toggle="tooltip"]').tooltip()
-            })
-        </script>
+        <script src={{ url_for('webui.static', filename="dist/js/base.js") }}></script>
+
         {% block scripts %}{% endblock %}
     </body>
 </html>
