@@ -1,0 +1,3 @@
+.btn-primary, .card-primary .card-header{
+    background-color: var(--purple) !important;
+}
