@@ -1,1 +1,1 @@
-nuBox/blueprints/webui/static/plugins/* linguist-vendored
+*.py linguist-language=Python
