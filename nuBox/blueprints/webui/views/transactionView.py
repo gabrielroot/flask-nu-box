@@ -8,12 +8,15 @@ from nuBox.blueprints.webui.forms.TransactionForm import TransactionCreate
 from nuBox.blueprints.webui.utils.OPTransactionEnum import TransactionOperation
 from nuBox.blueprints.webui.repository.TransactionRepository import TransactionRepository
 
+
 @login_required
 def myTransactions():
     page = request.args.get('page', 1, type=int)
     pagination = TransactionRepository.findMyActivesTransactions(current_user).paginate(page=page, per_page=10, error_out=False)
     return render_template("transactions/index.html", pagination=pagination, operation=TransactionOperation)
 
+
+@login_required
 def newTransaction(box_id):
     form = TransactionCreate(request.form)
     box = BoxRepository.findOneActiveBox(id=box_id, current_user=current_user)
@@ -37,14 +40,14 @@ def newTransaction(box_id):
                 if balance.total - transaction.value < 0:
                     flashMessagesService.addWarningMessage("Você não tem saldo suficiente para guardar este valor na caixinha.")
                     return render_template("transactions/depositWithdraw.html", form=form, box=box, transaction=transaction)
-                
+
                 box.value = box.value + transaction.value
                 balance.total = balance.total - transaction.value
             elif transaction.operation == TransactionOperation.WITHDRAW.name:
                 if box.value - transaction.value < 0:
                     flashMessagesService.addWarningMessage("Você tentou resgatar um valor maior do que o total guardado na caixinha.")
                     return render_template("transactions/depositWithdraw.html", form=form, box=box, transaction=transaction)
-                
+
                 box.value = box.value - transaction.value
                 balance.total = balance.total + transaction.value
 
@@ -54,10 +57,11 @@ def newTransaction(box_id):
 
             flashMessagesService.addSuccessMessage("A caixinha foi movimentada com sucesso!")
             return redirect(url_for('webui.myTransactions'))
-        except:
+        except Exception:
             flashMessagesService.addErrorMessage("Ocorreu um erro ao tentar movimentar a caixinha.")
-          
+
     return render_template("transactions/depositWithdraw.html", form=form, box=box, transaction=transaction)
+
 
 def newBalanceTransaction():
     form = TransactionCreate(request.form)
@@ -78,7 +82,7 @@ def newBalanceTransaction():
                 if balance.total - transaction.value < 0:
                     flashMessagesService.addWarningMessage("Você tentou resgatar um valor maior do que o seu saldo total.")
                     return render_template("user/profile.html", form=form, transaction=transaction)
-                
+
                 balance.total -= transaction.value
 
             balance.persist()
@@ -86,7 +90,7 @@ def newBalanceTransaction():
 
             flashMessagesService.addSuccessMessage("Saldo atualizado com sucesso!")
             return redirect(url_for('webui.profile'))
-        except:
+        except Exception:
             flashMessagesService.addErrorMessage("Ocorreu um erro ao tentar atualizar seu saldo.")
-          
+
     return render_template("user/profile.html", form=form, transaction=transaction)

@@ -7,5 +7,6 @@ api = Api(bp)
 api.add_resource(ProductResource, "/user/")
 api.add_resource(ProductItemResource, "/user/<user_id>")
 
+
 def init_app(app):
     app.register_blueprint(bp)

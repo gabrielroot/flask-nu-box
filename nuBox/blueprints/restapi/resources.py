@@ -2,6 +2,7 @@ from flask import jsonify, abort
 from flask_restful import Resource
 from nuBox.ext.database import User
 
+
 class ProductResource(Resource):
     def get(self):
         users = User.query.all() or abort(204)
@@ -11,6 +12,7 @@ class ProductResource(Resource):
                 for user in users
             ]}
         )
+
 
 class ProductItemResource(Resource):
     def get(self, user_id):
