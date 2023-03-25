@@ -3,6 +3,7 @@ from flask_login import LoginManager
 
 from .urls import bpAuth
 
+
 def init_app(app):
     app.register_blueprint(bpAuth)
 

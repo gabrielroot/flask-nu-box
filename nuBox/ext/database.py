@@ -12,12 +12,11 @@ def init_app(app):
 
 class Base(db.Model):
     __abstract__ = True
-    
+
     createdAt = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updatedAt = db.Column(db.DateTime)
     deletedAt = db.Column(db.DateTime)
-    deleted   = db.Column(db.Boolean, default=False, nullable=False)
-
+    deleted = db.Column(db.Boolean, default=False, nullable=False)
 
     def persist(self, flush=False):
         self.updatedAt = datetime.utcnow()
@@ -29,7 +28,6 @@ class Base(db.Model):
             db.session.flush()
 
         return self
-
 
     def remove(self, flush=False):
         self.deleted = True
@@ -79,7 +77,9 @@ class Transaction(Base, SerializerMixin):
     date = db.Column(db.DateTime, default=datetime.utcnow)
 
     box_id = db.Column(db.Integer, db.ForeignKey('boxes.id'), nullable=True)
-    balance_id = db.Column(db.Integer, db.ForeignKey('balances.id'), nullable=True)
+    balance_id = db.Column(db.Integer, db.ForeignKey('balances.id'),
+                           nullable=True
+                           )
 
 
 class Balance(Base, SerializerMixin):

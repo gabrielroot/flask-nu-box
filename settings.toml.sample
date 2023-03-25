@@ -1,8 +1,5 @@
 [default]
 DEBUG = false
-FLASK_ADMIN_NAME = "Flask@Box"
-FLASK_ADMIN_TEMPLATE_MODE = "bootstrap3"
-FLASK_ADMIN_SWATCH = 'darkly'
 SQLALCHEMY_DATABASE_URI = 'postgresql://user:pass@db:5432/db'
 TITLE = "Flask@Box"
 LOCALE = "pt_BR.UTF-8"

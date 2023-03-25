@@ -1,11 +1,12 @@
 import locale
 import pytz
 
+
 def init_app(app):
     @app.template_filter()
-    def format_datetime(value, formatTo, tz=app.config.TIMEZONE):
-        value = value.replace(tzinfo=pytz.utc)
-        return value.astimezone(pytz.timezone(tz)).strftime(formatTo)
+    def format_datetime(date_time, formatTo, tz=app.config.TIMEZONE):
+        date_time = date_time.replace(tzinfo=pytz.utc)
+        return date_time.astimezone(pytz.timezone(tz)).strftime(formatTo)
 
     @app.template_filter()
     def format_money(value, toLocale=app.config.LOCALE):
