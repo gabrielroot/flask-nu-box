@@ -1,8 +1,9 @@
 from datetime import datetime
 from flask_login import login_required, current_user
-from flask import render_template, request, redirect, url_for, abort
+from flask import render_template, request, redirect, url_for
 from nuBox.ext.database import Transaction as TransactionModel
 from nuBox.blueprints.webui.services import flashMessagesService
+from nuBox.blueprints.webui.services import transactionService
 from nuBox.blueprints.webui.repository.BoxRepository import BoxRepository
 from nuBox.blueprints.webui.forms.TransactionForm import TransactionCreate
 from nuBox.blueprints.webui.utils.OPTransactionEnum import TransactionOperation
@@ -12,7 +13,8 @@ from nuBox.blueprints.webui.repository.TransactionRepository import TransactionR
 @login_required
 def myTransactions():
     page = request.args.get('page', 1, type=int)
-    pagination = TransactionRepository.findMyActivesTransactions(current_user).paginate(page=page, per_page=10, error_out=False)
+    pagination = TransactionRepository.findMyActivesTransactions(current_user).\
+        paginate(page=page, per_page=10, error_out=False)
     return render_template("transactions/index.html", pagination=pagination, operation=TransactionOperation)
 
 
@@ -36,20 +38,11 @@ def newTransaction(box_id):
             transaction.date = datetime.utcnow()
             transaction.box = box
 
-            if transaction.operation == TransactionOperation.DEPOSIT.name:
-                if balance.total - transaction.value < 0:
-                    flashMessagesService.addWarningMessage("Você não tem saldo suficiente para guardar este valor na caixinha.")
-                    return render_template("transactions/depositWithdraw.html", form=form, box=box, transaction=transaction)
+            errorMessage = transactionService.makeDepositOrWithdraw(transaction=transaction, box=box, balance=balance)
 
-                box.value = box.value + transaction.value
-                balance.total = balance.total - transaction.value
-            elif transaction.operation == TransactionOperation.WITHDRAW.name:
-                if box.value - transaction.value < 0:
-                    flashMessagesService.addWarningMessage("Você tentou resgatar um valor maior do que o total guardado na caixinha.")
-                    return render_template("transactions/depositWithdraw.html", form=form, box=box, transaction=transaction)
-
-                box.value = box.value - transaction.value
-                balance.total = balance.total + transaction.value
+            if errorMessage:
+                flashMessagesService.addWarningMessage(errorMessage)
+                return render_template("transactions/depositWithdraw.html", form=form, box=box, transaction=transaction)
 
             balance.persist()
             transaction.persist()
@@ -76,14 +69,11 @@ def newBalanceTransaction():
             transaction.date = datetime.utcnow()
             transaction.balance_id = balance.id
 
-            if transaction.operation == TransactionOperation.DEPOSIT.name:
-                balance.total += transaction.value
-            elif transaction.operation == TransactionOperation.WITHDRAW.name:
-                if balance.total - transaction.value < 0:
-                    flashMessagesService.addWarningMessage("Você tentou resgatar um valor maior do que o seu saldo total.")
-                    return render_template("user/profile.html", form=form, transaction=transaction)
+            errorMessage = transactionService.makeDepositOrWithdrawAtBalance(transaction=transaction, balance=balance)
 
-                balance.total -= transaction.value
+            if errorMessage:
+                flashMessagesService.addWarningMessage(errorMessage)
+                return render_template("user/profile.html", form=form, transaction=transaction)
 
             balance.persist()
             transaction.persist()
