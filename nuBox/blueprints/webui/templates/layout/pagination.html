@@ -1,7 +1,7 @@
 <nav aria-label="navigation">
   <ul class="pagination justify-content-end">
     <li class="page-item {{'disabled' if not pagination.has_prev else ''}}">
-      <a class="page-link" href="{{url_for(url_name, page=pagination.prev_num)}}">Anterior</a>
+      <a class="page-link" href="{{url_for(url_name, page=pagination.prev_num)}}">«</a>
     </li>
     {% for page_num in pagination.iter_pages(): %}
       {% if page_num %}
@@ -22,7 +22,7 @@
       </li>
     {% endfor%}
     <li class="page-item {{'disabled' if not pagination.has_next else ''}}">
-      <a class="page-link" href="{{url_for(url_name, page=pagination.next_num)}}">Próximo</a>
+      <a class="page-link" href="{{url_for(url_name, page=pagination.next_num)}}">»</a>
     </li>
   </ul>
 </nav>

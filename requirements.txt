@@ -19,3 +19,5 @@ Werkzeug==2.2.2
 psycopg2-binary==2.9.5
 Flask-Login==0.6.2
 Flask-Migrate==4.0.4
+flask-marshmallow==0.14.0
+marshmallow-sqlalchemy==0.29.0
