@@ -9,9 +9,7 @@ def create_user(username, password):
     if User.query.filter_by(username=username).first():
         raise RuntimeError(f'{username} já está cadastrado')
     balance = Balance(total=1000)
-    user = User(username=username, password=generate_password_hash(password),
-                balance=balance
-                )
+    user = User(username=username, password=generate_password_hash(password), balance=balance)
     user.persist()
 
     return user
@@ -29,9 +27,7 @@ def login_post():
     user = User.query.filter_by(username=username, deleted=False).first()
 
     if not user or not check_password_hash(user.password, password):
-        flashMessagesService.addErrorMessage(
-            'Nome de usuário ou senha inválidos.'
-            )
+        flashMessagesService.addErrorMessage('Nome de usuário ou senha inválidos.')
         return redirect(url_for('auth.login'))
 
     login_user(user, remember=remember)
@@ -49,9 +45,7 @@ def signup_post():
     user = User.query.filter_by(username=username, deleted=False).first()
 
     if user:
-        flashMessagesService.addWarningMessage(
-            f'Nome de usuário "{username}" não disponível.'
-            )
+        flashMessagesService.addWarningMessage(f'Nome de usuário "{username}" não disponível.')
         return redirect(url_for('auth.signup'))
 
     balance = Balance(total=10)
@@ -62,9 +56,7 @@ def signup_post():
     )
 
     new_user.persist()
-    flashMessagesService.addSuccessMessage(
-        f'O usuário "{username}" foi criado com sucesso!'
-        )
+    flashMessagesService.addSuccessMessage(f'O usuário "{username}" foi criado com sucesso!')
     return redirect(url_for('auth.login'))
 
 

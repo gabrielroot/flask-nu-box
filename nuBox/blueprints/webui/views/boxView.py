@@ -21,11 +21,11 @@ def newBox():
 
     if request.method == 'POST' and form.validate():
         box = BoxModel(
-          name=form.name.data,
-          goal=form.goal.data,
-          value=0,
-          description=form.description.data,
-          user=current_user
+            name=form.name.data,
+            goal=form.goal.data,
+            value=0,
+            description=form.description.data,
+            user=current_user
         )
 
         try:
@@ -34,13 +34,12 @@ def newBox():
                 addSuccessMessage("A caixinha foi criada com sucesso!")
             return redirect(url_for('webui.myBoxes'))
         except Exception:
-            flashMessagesService.addErrorMessage(
-              "Ocorreu um erro ao tentar salvar a caixinha."
-              )
+            flashMessagesService.addErrorMessage("Ocorreu um erro ao tentar salvar a caixinha.")
 
     return render_template("boxes/new.html", form=form, box=BoxModel())
 
 
+@login_required
 def editBox(id):
     form = BoxCreate(request.form)
     box = BoxRepository.findOneActiveBox(id=id, current_user=current_user)
@@ -56,18 +55,15 @@ def editBox(id):
             box.description = form.description.data
             box.persist()
 
-            flashMessagesService.addSuccessMessage(
-                "A caixinha foi editada com sucesso!"
-                )
+            flashMessagesService.addSuccessMessage("A caixinha foi editada com sucesso!")
             return redirect(url_for('webui.myBoxes'))
         except Exception:
-            flashMessagesService.addErrorMessage(
-                "Ocorreu um erro ao tentar salvar a caixinha."
-                )
+            flashMessagesService.addErrorMessage("Ocorreu um erro ao tentar salvar a caixinha.")
 
     return render_template("boxes/edit.html", form=form, box=box)
 
 
+@login_required
 def deleteBox(id):
     box = BoxRepository.findOneActiveBox(id=id, current_user=current_user)
 
@@ -76,19 +72,13 @@ def deleteBox(id):
         return redirect(url_for('webui.myBoxes'))
 
     if box.value > 0:
-        flashMessagesService.addErrorMessage(
-            "A caixinha contém saldo. Por isso, não pode ser deletada."
-            )
+        flashMessagesService.addErrorMessage("A caixinha contém saldo. Por isso, não pode ser deletada.")
         return redirect(url_for('webui.myBoxes'))
 
     try:
         box.remove()
-        flashMessagesService.addSuccessMessage(
-            "A caixinha foi deletada com sucesso!"
-            )
+        flashMessagesService.addSuccessMessage("A caixinha foi deletada com sucesso!")
     except Exception:
-        flashMessagesService.addErrorMessage(
-            "Ocorreu um erro ao tentar deletar a caixinha."
-            )
+        flashMessagesService.addErrorMessage("Ocorreu um erro ao tentar deletar a caixinha.")
 
     return redirect(url_for('webui.myBoxes'))

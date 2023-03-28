@@ -34,8 +34,7 @@ class TransactionRepository:
                 is_not(BoxModel.deleted, True),
                 TransactionModel.operation == operation,
                 is_not(TransactionModel.deleted, True)
-            ).\
-            scalar()
+        ).scalar()
 
     @staticmethod
     def countTransactionsInBoxesByWeekDay(current_user):
@@ -59,7 +58,6 @@ class TransactionRepository:
                         is_not(TransactionModel.deleted, True),
                         db.func.DATE(TransactionModel.date) >= past_sunday,
                         extract('dow', TransactionModel.date) == day
-                    ).\
-                    scalar()
+                ).scalar()
                 week_days[operation.name].append(count)
         return week_days

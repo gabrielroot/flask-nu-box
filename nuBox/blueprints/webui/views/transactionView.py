@@ -56,6 +56,7 @@ def newTransaction(box_id):
     return render_template("transactions/depositWithdraw.html", form=form, box=box, transaction=transaction)
 
 
+@login_required
 def newBalanceTransaction():
     form = TransactionCreate(request.form)
     balance = current_user.balance
