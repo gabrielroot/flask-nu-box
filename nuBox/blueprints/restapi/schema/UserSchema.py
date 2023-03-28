@@ -11,4 +11,5 @@ class UserSchema(ma.SQLAlchemySchema):
     username = ma.auto_field()
     createdAt = ma.auto_field()
     deletedAt = ma.auto_field()
+    deleted = ma.auto_field()
     updatedAt = ma.auto_field()
