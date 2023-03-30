@@ -47,18 +47,29 @@
 </div>
 
 <div class="card-footer pull-right">
-    <div class="row d-flex justify-content-end" style="column-gap: 10px">
-
-
+    <div class="row d-flex justify-content-end" style="column-gap: 4px">
         <a 
             href="{{ url_for('webui.myBoxes') }}" 
-            class="col-lg-4 col-md-5 col-sm-12 btn btn-secondary mb-2"
+            class="col-lg-3 btn btn-secondary mb-2"
             style="align-self: end; height: 38px;"
         >
+            <i class="fas fa-chevron-left"></i>
             Voltar
         </a>
 
-        <div class="col-lg-4 col-md-5 col-sm-12 btn-group text-nowrap p-0 mb-2" style="height: 38px;">
+        {% if box.id %}
+            <row class="col-lg-4 text-nowrap p-0 d-flex justify-content-end mb-2">
+                <a 
+                    class="col-md-12  btn btn-block btn-outline-info" 
+                    href="{{url_for('webui.newTransaction', box_id=box.id)}}"
+                    style="height: 38px"
+                >
+                        <i class="nav-icon fas fa-random mr-2"></i>Movimentar
+                </a>
+            </row>
+        {% endif %}
+
+        <div class="col-lg-4 btn-group text-nowrap p-0" style="height: 38px;">
             <button type="submit" class="btn btn-block btn-primary"><i class="fa fa-save mr-2"></i>Salvar</button>
             {% if box.id %}
                 <a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
@@ -70,12 +81,6 @@
                 </div>
             {% endif %}
         </div>
-
-        {% if box.id %}
-            <row class="col-lg-12 text-nowrap p-0 d-flex justify-content-end">
-                <a class="col-md-6  btn btn-block btn-outline-info" href="{{url_for('webui.newTransaction', box_id=box.id)}}"><i class="nav-icon fas fa-random mr-2"></i>Resgatar/Guardar</a>
-            </row>
-        {% endif %}
     </div>
 </div>
 

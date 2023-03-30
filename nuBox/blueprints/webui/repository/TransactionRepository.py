@@ -44,7 +44,7 @@ class TransactionRepository:
         months = {}
         for operation in TransactionOperation:
             months[operation.name] = []
-            for day in range(1, 13):
+            for month in range(1, 13):
                 count = db.session.query(db.func.COUNT(TransactionModel.id)).\
                     join(TransactionModel.box, isouter=True).\
                     filter(
@@ -53,7 +53,7 @@ class TransactionRepository:
                         TransactionModel.operation == operation.name,
                         is_not(TransactionModel.deleted, True),
                         db.func.DATE(TransactionModel.date) >= january,
-                        extract('MONTH', TransactionModel.date) == day
+                        extract('MONTH', TransactionModel.date) == month
                 ).scalar()
                 months[operation.name].append(count)
         return months
