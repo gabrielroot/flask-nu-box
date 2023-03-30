@@ -13,7 +13,7 @@ def index():
     pagination = TransactionRepository.\
         findMyActivesTransactions(current_user).paginate(page=1, per_page=3)
 
-    count_transactions_in_boxes_by_week_day = TransactionRepository.\
+    count_transactions_in_boxes_by_month = TransactionRepository.\
         countTransactionsInBoxesByWeekDay(current_user=current_user)
     sum_of_deposits_from_boxes = TransactionRepository.\
         sumOfWithdrawsOrDepositsFromBoxes(
@@ -38,7 +38,7 @@ def index():
         total_in_boxes=total_in_boxes,
         all_summation=all_summation,
         count_all_goal_boxes=count_all_goal_boxes,
-        count_transactions_in_boxes_by_week_day=count_transactions_in_boxes_by_week_day
+        count_transactions_in_boxes_by_month=count_transactions_in_boxes_by_month
     )
 
     return render_template("dashboard.html", pagination=pagination,
