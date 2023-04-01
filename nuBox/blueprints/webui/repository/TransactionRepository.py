@@ -1,4 +1,3 @@
-from flask import abort
 from operator import is_not
 from sqlalchemy import extract
 from datetime import datetime
@@ -15,14 +14,8 @@ class TransactionRepository:
             join(TransactionModel.balance, isouter=True).\
             filter(
                 is_not(TransactionModel.deleted, True),
-                db.or_(
-                    BoxModel.user_id == current_user.id,
-                    BalanceModel.user_id == current_user.id
-                ),
-                db.or_(
-                    is_not(BoxModel.deleted, True),
-                    is_not(BalanceModel.deleted, True)
-                )
+                db.or_(BoxModel.user_id == current_user.id, BalanceModel.user_id == current_user.id),
+                db.or_(is_not(BoxModel.deleted, True), is_not(BalanceModel.deleted, True))
             ).\
             order_by(TransactionModel.createdAt.desc())
 

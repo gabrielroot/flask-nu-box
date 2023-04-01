@@ -19,18 +19,11 @@ class BoxRepository:
     @staticmethod
     def getSumOfValuesInBoxes(current_user):
         return db.session.query(db.func.sum(BoxModel.value)).\
-            filter(
-                is_not(BoxModel.deleted, True),
-                BoxModel.user == current_user
-            ).\
+            filter(is_not(BoxModel.deleted, True), BoxModel.user == current_user).\
             scalar()
 
     @staticmethod
     def countAllGoalBoxes(current_user):
         return db.session.query(db.func.count(BoxModel.id)).\
-            filter(
-                is_not(BoxModel.deleted, True),
-                BoxModel.user == current_user,
-                BoxModel.value >= BoxModel.goal
-            ).\
+            filter(is_not(BoxModel.deleted, True), BoxModel.user == current_user, BoxModel.value >= BoxModel.goal).\
             scalar()
