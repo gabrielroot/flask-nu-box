@@ -46,7 +46,7 @@ E caso necessite, o Adminer em http://127.0.0.1:8080
 <br>
 
 # Documentação
-![Diagrama de classes](doc/Caixinhas@Root.drawio.png "Diagrama de classes")
+![Modelo conceitual](doc/Caixinhas@Root.drawio.png "Modelo conceitual")
 
 <br>
 <br>
