@@ -44,10 +44,6 @@ def newTransaction(box_id):
                 flashMessagesService.addWarningMessage(errorMessage)
                 return render_template("transactions/depositWithdraw.html", form=form, box=box, transaction=transaction)
 
-            balance.persist()
-            transaction.persist()
-            box.persist()
-
             flashMessagesService.addSuccessMessage("A caixinha foi movimentada com sucesso!")
             return redirect(url_for('webui.myTransactions'))
         except Exception:
@@ -75,9 +71,6 @@ def newBalanceTransaction():
             if errorMessage:
                 flashMessagesService.addWarningMessage(errorMessage)
                 return render_template("user/profile.html", form=form, transaction=transaction)
-
-            balance.persist()
-            transaction.persist()
 
             flashMessagesService.addSuccessMessage("Saldo atualizado com sucesso!")
             return redirect(url_for('webui.profile'))

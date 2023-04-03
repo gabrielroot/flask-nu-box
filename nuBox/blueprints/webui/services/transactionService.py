@@ -15,6 +15,10 @@ def makeDepositOrWithdraw(transaction, box, balance):
         box.value -= transaction.value
         balance.total += transaction.value
 
+    balance.persist()
+    transaction.persist()
+    box.persist()
+
 
 def makeDepositOrWithdrawAtBalance(transaction, balance):
     if transaction.operation == TransactionOperation.DEPOSIT.name:
@@ -24,3 +28,6 @@ def makeDepositOrWithdrawAtBalance(transaction, balance):
             return "Você tentou resgatar um valor maior do que o seu saldo total."
 
         balance.total -= transaction.value
+
+    balance.persist()
+    transaction.persist()
