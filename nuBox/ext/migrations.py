@@ -1,4 +1,5 @@
 from flask_migrate import Migrate
+
 from nuBox.ext.database import db
 
 

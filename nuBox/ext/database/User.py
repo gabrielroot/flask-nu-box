@@ -1,6 +1,7 @@
-from nuBox.ext.database import db, Base
 from flask_login import UserMixin
 from sqlalchemy_serializer import SerializerMixin
+
+from nuBox.ext.database import Base, db
 
 
 class User(Base, UserMixin, SerializerMixin):

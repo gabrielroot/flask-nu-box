@@ -1,6 +1,8 @@
 from operator import is_not
+
+from nuBox.ext.database import Box as BoxModel
+from nuBox.ext.database import Balance as BalanceModel
 from nuBox.ext.database import db
-from nuBox.ext.database import Box as BoxModel, Balance as BalanceModel
 
 
 class BalanceRepository:

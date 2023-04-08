@@ -1,4 +1,5 @@
 import click
+
 from nuBox.ext.database import db
 from nuBox.ext.authentication.views.authView import create_user
 

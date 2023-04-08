@@ -1,5 +1,5 @@
-from nuBox.ext.marshmallow import ma
 from nuBox.ext.database import User as UserModel
+from nuBox.ext.marshmallow import ma
 
 
 class UserSchema(ma.SQLAlchemySchema):

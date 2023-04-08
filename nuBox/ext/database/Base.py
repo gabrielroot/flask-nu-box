@@ -1,5 +1,6 @@
-from nuBox.ext.database import db
 from datetime import datetime
+
+from nuBox.ext.database import db
 
 
 class Base(db.Model):

@@ -1,9 +1,13 @@
-from operator import is_not
-from sqlalchemy import extract
 from datetime import datetime
+from operator import is_not
+
+from sqlalchemy import extract
+
+from nuBox.ext.database import Box as BoxModel
+from nuBox.ext.database import Balance as BalanceModel
+from nuBox.ext.database import Transaction as TransactionModel
+from nuBox.ext.database import db
 from nuBox.blueprints.webui.utils.OPTransactionEnum import TransactionOperation
-from nuBox.ext.database import db, Transaction as TransactionModel,\
-    Box as BoxModel, Balance as BalanceModel
 
 
 class TransactionRepository:

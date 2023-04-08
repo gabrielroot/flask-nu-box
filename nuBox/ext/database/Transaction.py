@@ -1,6 +1,8 @@
 from datetime import datetime
-from nuBox.ext.database import db, Base
+
 from sqlalchemy_serializer import SerializerMixin
+
+from nuBox.ext.database import Base, db
 
 
 class Transaction(Base, SerializerMixin):

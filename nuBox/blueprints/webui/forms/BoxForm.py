@@ -1,6 +1,6 @@
+from wtforms import HiddenField, StringField, IntegerField, TextAreaField
 from flask_wtf import Form
-from wtforms import StringField, IntegerField, HiddenField, TextAreaField
-from wtforms.validators import DataRequired, Length
+from wtforms.validators import Length, DataRequired
 
 
 class BoxCreate(Form):

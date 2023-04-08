@@ -1,6 +1,7 @@
+from wtforms import RadioField, HiddenField, IntegerField, TextAreaField
 from flask_wtf import Form
-from wtforms import RadioField, IntegerField, HiddenField, TextAreaField
 from wtforms.validators import DataRequired
+
 from nuBox.blueprints.webui.utils.OPTransactionEnum import TransactionOperation
 
 

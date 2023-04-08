@@ -1,11 +1,10 @@
 from flask import render_template
-from flask_login import login_required, current_user
-from nuBox.blueprints.webui.repository.BoxRepository import BoxRepository
-from nuBox.blueprints.webui.repository.BalanceRepository import \
-    BalanceRepository
-from nuBox.blueprints.webui.repository.TransactionRepository import \
-    TransactionRepository
+from flask_login import current_user, login_required
+
 from nuBox.blueprints.webui.utils.OPTransactionEnum import TransactionOperation
+from nuBox.blueprints.webui.repository.BoxRepository import BoxRepository
+from nuBox.blueprints.webui.repository.BalanceRepository import BalanceRepository
+from nuBox.blueprints.webui.repository.TransactionRepository import TransactionRepository
 
 
 @login_required

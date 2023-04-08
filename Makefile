@@ -1,6 +1,6 @@
 pep8:
-	flake8 .
-	isort training --check-only
+	python -m flake8 .
+	python -m isort training --check-only
 
 up: 
 	docker-compose up
@@ -15,4 +15,4 @@ clean:
 	rm -f coverage.xml
 
 fix-import: clean
-	isort . -rc
+	python -m isort .

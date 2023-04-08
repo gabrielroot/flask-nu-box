@@ -1,5 +1,6 @@
-from nuBox.ext.database import db, Base
 from sqlalchemy_serializer import SerializerMixin
+
+from nuBox.ext.database import Base, db
 
 
 class Box(Base, SerializerMixin):

@@ -1,12 +1,13 @@
 from datetime import datetime
-from flask_login import login_required, current_user
-from flask import render_template, request, redirect, url_for
+
+from flask import request, url_for, redirect, render_template
+from flask_login import current_user, login_required
+
 from nuBox.ext.database import Transaction as TransactionModel
-from nuBox.blueprints.webui.services import flashMessagesService
-from nuBox.blueprints.webui.services import transactionService
-from nuBox.blueprints.webui.repository.BoxRepository import BoxRepository
+from nuBox.blueprints.webui.services import transactionService, flashMessagesService
 from nuBox.blueprints.webui.forms.TransactionForm import TransactionCreate
 from nuBox.blueprints.webui.utils.OPTransactionEnum import TransactionOperation
+from nuBox.blueprints.webui.repository.BoxRepository import BoxRepository
 from nuBox.blueprints.webui.repository.TransactionRepository import TransactionRepository
 
 

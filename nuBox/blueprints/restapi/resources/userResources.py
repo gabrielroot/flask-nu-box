@@ -1,5 +1,6 @@
-from flask import jsonify, abort
+from flask import abort, jsonify
 from flask_restful import Resource
+
 from nuBox.ext.database import User as UserModel
 from nuBox.blueprints.restapi.schema.UserSchema import UserSchema
 

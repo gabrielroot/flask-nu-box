@@ -1,4 +1,5 @@
 from flask import Blueprint
+
 from .views import boxView, indexView, profileView, transactionView
 
 bp = Blueprint(
