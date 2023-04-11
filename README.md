@@ -59,6 +59,9 @@ E caso necessite, o Adminer em http://127.0.0.1:8080
 
 # Capturas
 
+### - Apresentação
+> ![Apresentação](doc/presentation.gif "Apresentação")
+
 ### - Dashboard
 > ![Dashboard](doc/dashboard.png "Dashboard")
 
