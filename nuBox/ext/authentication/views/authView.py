@@ -9,7 +9,7 @@ from nuBox.blueprints.webui.services import flashMessagesService
 def create_user(username, password):
     if User.query.filter_by(username=username).first():
         raise RuntimeError(f'{username} já está cadastrado')
-    balance = Balance(total=1000)
+    balance = Balance(total=0)
     user = User(username=username, password=generate_password_hash(password), balance=balance)
     user.persist()
 

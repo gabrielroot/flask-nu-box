@@ -7,6 +7,7 @@ def test_create_first_user(app):
     user = create_user(username="test_user", password=plain_password)
 
     assert user.id is not None
+    assert user.balance.total == 0
     assert user.password != plain_password
 
 
