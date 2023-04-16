@@ -26,10 +26,10 @@ RUN chmod g+s -R  $APP_PATH
 USER app_user 
 
 # RUN python -m venv .venv && source .venv/bin/activate
-RUN pip install -r requirements.txt --user 
+RUN pip install -r requirements-dev.txt --user 
 
 ENV FLASK_RUN_PORT=8000
+ENV ENV_FOR_DYNACONF=development
 ENV FLASK_APP=nuBox/app.py
-ENV FLASK_DEBUG=1  
 
 CMD [ "python", "-m", "flask", "run", "--host=0.0.0.0"]

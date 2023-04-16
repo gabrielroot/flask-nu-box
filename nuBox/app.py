@@ -9,8 +9,9 @@ def minimal_app(**config):
     return app
 
 
-def create_app(**config):
-    # O flask reconhece o padrão
+def create_app(env=None, **config):
+    if env:
+        config.update(ENV_FOR_DYNACONF=env)
     app = minimal_app(**config)
     configuration.load_extensions(app)
     return app

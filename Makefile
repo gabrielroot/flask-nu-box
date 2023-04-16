@@ -16,3 +16,6 @@ clean:
 
 fix-import: clean
 	python -m isort .
+
+test:
+	docker exec -it main python -m pytest -v

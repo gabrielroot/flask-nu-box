@@ -1,8 +1,10 @@
 [default]
+RUN_PORT=8000
 DEBUG = false
-SQLALCHEMY_DATABASE_URI = 'postgresql://user:pass@db:5432/db'
 TITLE = "Flask@Box"
 LOCALE = "pt_BR.UTF-8"
+ENV = "production"
+ENV_FOR_DYNACONF = "production"
 TIMEZONE = "America/Sao_Paulo"
 SECRET_KEY = "jadkfbsdkjbfbh"
 PASSWORD_SCHEMES = ['pbkdf2_sha512', 'md5_crypt']
@@ -20,9 +22,9 @@ EXTENSIONS = [
 
 [development]
 EXTENSIONS = [
-    "flask_debugtoolbar:DebugToolbarExtension",
     "dynaconf_merge_unique"  # to reuse extensions list from [default]
 ]
+SQLALCHEMY_DATABASE_URI = 'postgresql://user:pass@db:5432/db'
 TEMPLATES_AUTO_RELOAD = true
 DEBUG = true
 DEBUG_TOOLBAR_ENABLED = true
