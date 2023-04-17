@@ -20,7 +20,7 @@ A arquitetura base utilizada foi a do @rochacbruno, do canal codeshow. Tem como 
 - Copie o arquivo `.env.sample` e o renomeie para `.env`
 - Copie o arquivo `settings.toml.sample` e o renomeie para `settings.toml`
 - Esteja na pasta do projeto e execute os seguintes comandos no terminal:
-- `docker-compose up --build`
+- `docker-compose up -d --build`
 > Aguarde até o serviço `db` estar "ready to accept connections"
 - `$ docker exec -it main flask db upgrade`
 
