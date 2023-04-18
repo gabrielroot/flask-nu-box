@@ -15,7 +15,7 @@ clean:
 	rm -f coverage.xml
 
 fix-import: clean
-	python -m isort .
+	docker exec -it main python -m isort .
 
 test:
-	docker exec -it main python -m pytest -v
+	docker exec -it main python -m pytest -v --cov=nuBox --cov-report=term-missing
