@@ -15,7 +15,7 @@ def test_create_user(app):
     assert user.password != plain_password
 
 
-def test_base_model(app, user):
+def test_base_model(user):
     box = BoxModel(name='base_box_test', value=0, goal=100, user_id=user.id)
     box.persist()
 
@@ -30,14 +30,14 @@ def test_base_model(app, user):
     assert box.deleted is not None
 
 
-def test_create_box(app, user):
+def test_create_box(user):
     box = BoxModel(name='boxname', value=0, goal=100, user_id=user.id)
     box.persist()
 
     assert box.id is not None
 
 
-def test_create_transaction(app, user):
+def test_create_transaction(user):
     first_box = BoxModel.query.first()
 
     transaction = TransactionModel(
