@@ -56,4 +56,4 @@ def test_deposit_withdraw_at_balance(user):
     assert None is makeDepositOrWithdrawAtBalance(balance=user.balance, transaction=transaction)
 
     transaction = makeTransaction(TransactionType.BALANCE.name, TransactionOperation.WITHDRAW.name, 200, balance)
-    assert makeDepositOrWithdrawAtBalance(balance=user.balance, transaction=transaction) is None
+    assert makeDepositOrWithdrawAtBalance(balance=user.balance, transaction=transaction) is not None
