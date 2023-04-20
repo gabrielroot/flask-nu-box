@@ -29,6 +29,7 @@ USER app_user
 RUN pip install -r requirements-dev.txt --user 
 
 ENV FLASK_RUN_PORT=8000
+ENV FLASK_DEBUG=1
 ENV ENV_FOR_DYNACONF=development
 ENV FLASK_APP=nuBox/app.py
 

@@ -1,5 +1,6 @@
 -r requirements.txt
 
+importlib-metadata==4.13.0
 flake8==3.8.4
 isort==5.11.5
 pytest==7.2.2

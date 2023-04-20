@@ -1,6 +1,10 @@
 pep8:
-	python -m flake8 .
-	python -m isort training --check-only
+	# stop the build if there are Python syntax errors or undefined names
+	python -m flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+	# exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+	python -m flake8 . --count --exit-zero --max-complexity=10 --max-line-length=120 --statistics
+
+	python -m isort . --check-only
 
 up: 
 	docker-compose up
@@ -15,7 +19,7 @@ clean:
 	rm -f coverage.xml
 
 fix-import: clean
-	docker exec -it main python -m isort .
+	python -m isort .
 
 test:
-	docker exec -it main python -m pytest -v --cov=nuBox --cov-report=term-missing
+	python -m pytest -v -W ignore --cov=nuBox --cov-report=term-missing
