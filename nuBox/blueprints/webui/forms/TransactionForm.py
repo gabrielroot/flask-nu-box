@@ -1,11 +1,11 @@
 from wtforms import RadioField, HiddenField, IntegerField, TextAreaField
-from flask_wtf import Form
+from flask_wtf import FlaskForm
 from wtforms.validators import DataRequired
 
 from nuBox.blueprints.webui.utils.OPTransactionEnum import TransactionOperation
 
 
-class TransactionCreate(Form):
+class TransactionCreate(FlaskForm):
     id = HiddenField()
     operation = RadioField(
         'Operação',

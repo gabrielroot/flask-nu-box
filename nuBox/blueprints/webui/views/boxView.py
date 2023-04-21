@@ -20,7 +20,7 @@ def myBoxes():
 def newBox():
     form = BoxCreate(request.form)
 
-    if request.method == 'POST' and form.validate():
+    if form.validate_on_submit():
         box = BoxModel(
             name=form.name.data,
             goal=form.goal.data,
@@ -49,7 +49,7 @@ def editBox(id):
         flashMessagesService.addWarningMessage("Não encontramos sua caixinha.")
         return redirect(url_for('webui.myBoxes'))
 
-    if request.method == 'POST':
+    if form.validate_on_submit():
         try:
             box.name = form.name.data
             box.goal = form.goal.data

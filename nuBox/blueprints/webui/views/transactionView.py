@@ -31,7 +31,7 @@ def newTransaction(box_id):
     transaction = TransactionModel()
     balance = current_user.balance
 
-    if request.method == 'POST':
+    if form.validate_on_submit():
         try:
             transaction.operation = form.operation.data
             transaction.description = form.description.data
@@ -59,7 +59,7 @@ def newBalanceTransaction():
     balance = current_user.balance
     transaction = TransactionModel()
 
-    if request.method == 'POST':
+    if form.validate_on_submit():
         try:
             transaction.operation = form.operation.data
             transaction.description = form.description.data

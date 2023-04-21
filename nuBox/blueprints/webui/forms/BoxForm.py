@@ -1,9 +1,9 @@
 from wtforms import HiddenField, StringField, IntegerField, TextAreaField
-from flask_wtf import Form
+from flask_wtf import FlaskForm
 from wtforms.validators import Length, DataRequired
 
 
-class BoxCreate(Form):
+class BoxCreate(FlaskForm):
     id = HiddenField()
     name = StringField(
         'Nome',
