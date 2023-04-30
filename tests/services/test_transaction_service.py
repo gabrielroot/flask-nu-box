@@ -48,7 +48,11 @@ def test_deposit_withdraw_at_balance(user):
     balance.total = 0
     balance.persist()
 
-    transaction = makeTransaction(TransactionType.BALANCE, TransactionOperation.DEPOSIT.name, 100, balance)
+    transaction = makeTransaction(TransactionType.BALANCE,
+                                  TransactionOperation.DEPOSIT.name,
+                                  100,
+                                  balance)
+
     assert None is makeDepositOrWithdrawAtBalance(balance=user.balance, transaction=transaction)
 
     transaction = makeTransaction(TransactionType.BALANCE, TransactionOperation.WITHDRAW.name, 100, balance)

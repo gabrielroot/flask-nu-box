@@ -45,6 +45,7 @@ DEBUG_TB_PANELS = [
 ]
 
 [testing]
+WTF_CSRF_ENABLED = false
 SQLALCHEMY_DATABASE_URI = 'sqlite:///testing.db'
 
 [production]

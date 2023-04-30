@@ -19,3 +19,13 @@ def user(app):
     with app.app_context():
         user = create_user(username="my_user", password='plain_password')
         yield user
+
+
+@pytest.fixture(scope="module")
+def client(app, user):
+    client = app.test_client()
+    with client:
+        client.post('/auth/login',
+                    data=dict(username='my_user', password='plain_password'),
+                    follow_redirects=True)
+        yield client
