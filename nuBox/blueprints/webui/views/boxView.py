@@ -12,7 +12,7 @@ def myBoxes():
     page = request.args.get('page', 1, type=int)
     pagination = BoxRepository.findMyActivesBoxes(current_user).\
         paginate(page=page, per_page=10, error_out=False)
-
+    flashMessagesService.addSuccessMessage('testFlashes')
     return render_template("boxes/index.html", pagination=pagination)
 
 
@@ -20,7 +20,7 @@ def myBoxes():
 def newBox():
     form = BoxCreate(request.form)
 
-    if form.validate_on_submit():
+    if request.method == "POST":
         box = BoxModel(
             name=form.name.data,
             goal=form.goal.data,

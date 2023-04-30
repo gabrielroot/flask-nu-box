@@ -50,7 +50,7 @@ class TransactionRepository:
                         TransactionModel.operation == operation.name,
                         is_not(TransactionModel.deleted, True),
                         db.func.DATE(TransactionModel.date) >= january,
-                        extract('MONTH', TransactionModel.date) == month
+                        extract('month', TransactionModel.date) == month
                 ).scalar()
                 months[operation.name].append(count)
         return months
