@@ -30,9 +30,9 @@ jobs:
         if [ -f requirements-dev.txt ]; then pip install -r requirements-dev.txt; fi
     - name: Inject settings from secrets
       run: echo ${{ secrets.SETTINGS_TOML }} > settings.toml
-    - name: ""
+    - name: "Setting locale info"
       run: |
-        apt-get -y update && apt-get -y install locales locales-all
+        sudo apt-get -y update && apt-get -y install locales locales-all
         export LANG=pt_BR.UTF-8  
         export LANGUAGE=pt_BR:en  
         export LC_ALL=pt_BR.UTF-8 
