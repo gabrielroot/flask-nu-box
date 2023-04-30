@@ -32,7 +32,7 @@ jobs:
       run: echo ${{ secrets.SETTINGS_TOML }} > settings.toml
     - name: "Setting locale info"
       run: |
-        sudo apt-get -y update && apt-get -y install locales locales-all
+        #sudo apt-get -y update && apt-get -y install locales locales-all
         export LANG=pt_BR.UTF-8  
         export LANGUAGE=pt_BR:en  
         export LC_ALL=pt_BR.UTF-8 
