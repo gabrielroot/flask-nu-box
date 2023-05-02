@@ -131,4 +131,4 @@ settings.toml
 
 .vscode
 # Swap files
-.swp
+*.swp

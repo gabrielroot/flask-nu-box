@@ -14,9 +14,10 @@ down:
 
 clean:
 	@echo "Execute cleaning ..."
-	rm -f *.pyc
-	rm -f .coverage
-	rm -f coverage.xml
+	- find -iname "*.pyc" -delete 2>/dev/null
+	- find -iname ".coverage" -delete 2>/dev/null
+	- find -iname "coverage.xml" -delete 2>/dev/null
+	- find -iname "*.swp" -delete 2>/dev/null
 
 fix-import: clean
 	python -m isort .
