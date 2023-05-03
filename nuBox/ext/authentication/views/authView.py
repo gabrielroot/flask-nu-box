@@ -32,6 +32,7 @@ def login_post():
         flashMessagesService.addErrorMessage('Nome de usuário ou senha inválidos.')
         return redirect(url_for('auth.login'))
 
+    flashMessagesService.addSuccessMessage(f"Bem-vindo(a) de volta {username}!")
     login_user(user, remember=remember)
     return redirect(url_for('webui.index'))
 
