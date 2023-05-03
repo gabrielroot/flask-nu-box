@@ -130,5 +130,8 @@ dmypy.json
 settings.toml
 
 .vscode
+
 # Swap files
 *.swp
+
+.docker/
