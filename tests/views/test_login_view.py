@@ -1,6 +1,6 @@
-from flask import session
+from flask import session, get_flashed_messages
+
 from nuBox.ext.database import User as UserModel
-from flask import get_flashed_messages
 
 
 def test_should_login_succesfully(client):
