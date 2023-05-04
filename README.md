@@ -2,7 +2,7 @@
 
 > Um remake das caixinhas do Nubank
 
-No ano passado (2022) a @nubank, um banco digital em ascensão no mercado, criou uma nova funcionalidade que viria permitir que seus usuários pudessem além de guardar valores, definir objetivos para eles.
+No ano passado (2022) a [@nubank](https://www.github.com/nubank) , um banco digital em ascensão no mercado, criou uma nova funcionalidade que viria permitir que seus usuários pudessem além de guardar valores, definir objetivos para eles.
 <br>
 <br>
 Essa criação me cativou muito devido a eu ter sentido falta dessa característica anteriormente e ter sido um dos que sugeriram tal feito.
