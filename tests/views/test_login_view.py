@@ -38,11 +38,11 @@ def test_should_create_user_succesfully(client):
     assert len(messages) > 0
     assert messages[0][0] == 'success'
 
-    created_user = UserModel.query.filter_by(
+    user_created = UserModel.query.filter_by(
         username='new_user'
     ).first()
-    assert created_user is not None
-    assert created_user.username == 'new_user'
+    assert user_created is not None
+    assert user_created.username == 'new_user'
 
     assert response.status_code == 200
 
@@ -57,11 +57,11 @@ def test_should_raise_fail_username_constraint(client):
     assert len(messages) > 0
     assert messages[0][0] == 'warning'
 
-    unique_created_user = UserModel.query.filter_by(
+    unique_user_created = UserModel.query.filter_by(
         username='new_user'
     ).all()
-    assert unique_created_user is not None
-    assert len(unique_created_user) == 1
+    assert unique_user_created is not None
+    assert len(unique_user_created) == 1
 
     assert response.status_code == 200
 
