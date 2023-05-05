@@ -1,6 +1,5 @@
 from flask import get_flashed_messages
 from flask_login import current_user
-
 from nuBox.ext.database import Box as BoxModel
 
 
@@ -90,6 +89,11 @@ def test_should_fail_on_delete(client):
     messages = get_flashed_messages(with_categories=True)
     assert len(messages) > 0
     assert messages[0][0] == 'danger'
+
+    client.get("/my-boxes/404/delete", follow_redirects=True)
+    messages = get_flashed_messages(with_categories=True)
+    assert len(messages) > 0
+    assert messages[0][0] == 'warning'
 
 
 def test_should_successfully_delete(client):
