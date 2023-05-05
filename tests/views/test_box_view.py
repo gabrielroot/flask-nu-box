@@ -1,5 +1,6 @@
 from flask import get_flashed_messages
 from flask_login import current_user
+
 from nuBox.ext.database import Box as BoxModel
 
 
