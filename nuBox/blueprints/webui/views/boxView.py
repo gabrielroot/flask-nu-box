@@ -21,21 +21,26 @@ def newBox():
     form = BoxCreate(request.form)
 
     if request.method == "POST":
-        box = BoxModel(
-            name=form.name.data,
-            goal=form.goal.data,
-            value=0,
-            description=form.description.data,
-            user=current_user
-        )
-
         try:
+            box = BoxModel(
+                name=form.name.data,
+                goal=form.goal.data,
+                value=0,
+                description=form.description.data,
+                user=current_user
+            )
+
+            if form.goal.data <= 0 or not form.name.data:
+                raise ValueError
+
             box.persist()
             flashMessagesService.\
                 addSuccessMessage("A caixinha foi criada com sucesso!")
             return redirect(url_for('webui.myBoxes'))
-        except Exception:
-            flashMessagesService.addErrorMessage("Ocorreu um erro ao tentar salvar a caixinha.")
+        except ValueError:
+            flashMessagesService.\
+                addErrorMessage("A entrada informada é inválida.")
+            return render_template("boxes/new.html", form=form, box=box)
 
     return render_template("boxes/new.html", form=form, box=BoxModel())
 
@@ -49,17 +54,21 @@ def editBox(id):
         flashMessagesService.addWarningMessage("Não encontramos sua caixinha.")
         return redirect(url_for('webui.myBoxes'))
 
-    if form.validate_on_submit():
-        try:
+    try:
+        if form.validate_on_submit():
             box.name = form.name.data
             box.goal = form.goal.data
             box.description = form.description.data
+
             box.persist()
 
-            flashMessagesService.addSuccessMessage("A caixinha foi editada com sucesso!")
+            flashMessagesService.\
+                addSuccessMessage("A caixinha foi editada com sucesso!")
             return redirect(url_for('webui.myBoxes'))
-        except Exception:
-            flashMessagesService.addErrorMessage("Ocorreu um erro ao tentar salvar a caixinha.")
+        elif request.method == 'POST':
+            raise ValueError
+    except ValueError:
+        flashMessagesService.addErrorMessage("A entrada informada é inválida.")
 
     return render_template("boxes/edit.html", form=form, box=box)
 
@@ -76,10 +85,7 @@ def deleteBox(id):
         flashMessagesService.addErrorMessage("A caixinha contém saldo. Por isso, não pode ser deletada.")
         return redirect(url_for('webui.myBoxes'))
 
-    try:
-        box.remove()
-        flashMessagesService.addSuccessMessage("A caixinha foi deletada com sucesso!")
-    except Exception:
-        flashMessagesService.addErrorMessage("Ocorreu um erro ao tentar deletar a caixinha.")
+    box.remove()
+    flashMessagesService.addSuccessMessage("A caixinha foi deletada com sucesso!")
 
     return redirect(url_for('webui.myBoxes'))
