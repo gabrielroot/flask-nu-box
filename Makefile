@@ -23,4 +23,4 @@ fix-import: clean
 	python -m isort .
 
 test:
-	python -m pytest -v -W ignore --cov=nuBox --cov-report=term-missing
+	python -m pytest -v -W ignore --cov=nuBox --cov-report=term-missing $(file)
