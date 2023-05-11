@@ -1,0 +1,2 @@
+[run]
+omit = nuBox/ext/authentication/__init__.py
