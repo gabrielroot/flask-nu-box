@@ -101,7 +101,6 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
 .venv
 env/
 venv/
@@ -127,7 +126,6 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-settings.toml
 
 .vscode
 
@@ -135,3 +133,7 @@ settings.toml
 *.swp
 
 .docker/
+
+# Fixed files
+# .env
+# settings.toml
