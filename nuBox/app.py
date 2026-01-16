@@ -3,7 +3,11 @@ from nuBox.ext.configuration import init_app, load_extensions
 
 
 def minimal_app(**config):
-    app = Flask(__name__)
+    app = Flask(
+        __name__,
+        instance_path="/tmp/instance",
+        instance_relative_config=True,
+    )
     init_app(app, **config)
     return app
 
