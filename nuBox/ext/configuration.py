@@ -1,30 +1,7 @@
-import os
-from importlib import import_module
 from pathlib import Path
-
 from dynaconf import FlaskDynaconf
 
-# Obtém o diretório raiz do projeto (onde está settings.toml)
 ROOT_PATH = Path(__file__).resolve().parent.parent.parent
-
-
-def load_extensions(app):
-    extensions = app.config.get("EXTENSIONS", [])
-
-    if not extensions:
-        app.logger.warning("No EXTENSIONS configured")
-        return
-
-    if isinstance(extensions, str):
-        import json
-        extensions = json.loads(extensions)
-
-    for extension in extensions:
-        module_name, extension_name = extension.split(":")
-        module = __import__(module_name, fromlist=[extension_name])
-        ext = getattr(module, extension_name)
-        ext.init_app(app)
-
 
 
 def init_app(app, **config):
@@ -37,3 +14,29 @@ def init_app(app, **config):
         env_switcher="ENV_FOR_DYNACONF",
         **config
     )
+
+
+def load_extensions(app):
+    extensions = app.config.get("EXTENSIONS")
+
+    if not extensions:
+        app.logger.warning("No EXTENSIONS configured")
+        return
+
+    if isinstance(extensions, str):
+        import json
+        extensions = json.loads(extensions)
+
+    for extension in extensions:
+        module_name, attr_name = extension.split(":")
+        module = __import__(module_name, fromlist=[attr_name])
+        ext = getattr(module, attr_name)
+
+        if hasattr(ext, "init_app"):
+            ext.init_app(app)
+        elif callable(ext):
+            ext(app)
+        else:
+            raise TypeError(
+                f"Extension {extension} is neither callable nor has init_app()"
+            )
