@@ -9,11 +9,12 @@ Flask-WTF==1.1.1
 Flask-DebugToolbar==0.13.1
 Jinja2==3.1.2
 SQLAlchemy==1.4.46
-SQLAlchemy-serializer==1.3.4.2
+SQLAlchemy-serializer==1.4.1
 Werkzeug==2.2.2
 psycopg2-binary==2.9.9
 Flask-Login==0.6.2
 Flask-Migrate==4.0.4
-flask-marshmallow==0.14.0
-marshmallow-sqlalchemy==0.29.0
+flask-marshmallow==1.2.1
+marshmallow==3.21.0
+marshmallow-sqlalchemy==0.30.0
 pytz==2023.2
