@@ -9,13 +9,22 @@ ROOT_PATH = Path(__file__).resolve().parent.parent.parent
 
 
 def load_extensions(app):
-    for extension in app.config.EXTENSIONS:
-        # Split data in form `extension.path:factory_function`
-        module_name, factory = extension.split(":")
-        # Dynamically import extension module.
-        ext = import_module(module_name)
-        # Invoke factory passing app.
-        getattr(ext, factory)(app)
+    extensions = app.config.get("EXTENSIONS", [])
+
+    if not extensions:
+        app.logger.warning("No EXTENSIONS configured")
+        return
+
+    if isinstance(extensions, str):
+        import json
+        extensions = json.loads(extensions)
+
+    for extension in extensions:
+        module_name, extension_name = extension.split(":")
+        module = __import__(module_name, fromlist=[extension_name])
+        ext = getattr(module, extension_name)
+        ext.init_app(app)
+
 
 
 def init_app(app, **config):
