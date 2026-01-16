@@ -1,5 +1,5 @@
 [default]
-RUN_PORT = 8003
+RUN_PORT = 8000
 DEBUG = false
 TITLE = 'Flask@Box'
 LOCALE = 'pt_BR.UTF-8'
