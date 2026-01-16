@@ -6,6 +6,7 @@ services:
       dockerfile: Dockerfile
     environment:
       TZ: 'America/Sao_Paulo'
+      ENV_FOR_DYNACONF: 'development'
     ports:
       - 8003:8000
     volumes:
