@@ -7,7 +7,7 @@ services:
     environment:
       TZ: 'America/Sao_Paulo'
     ports:
-      - 8000:8000
+      - 8003:8000
     volumes:
       - .:/usr/src/app
     depends_on:
@@ -19,7 +19,7 @@ services:
     container_name: adminer
     image: adminer
     ports:
-      - 8080:8080
+      - 8084:8080
     networks:
       - flaskk
     depends_on:
