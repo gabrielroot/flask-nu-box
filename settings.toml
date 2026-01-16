@@ -1,5 +1,5 @@
-# Configurações globais (aplicadas a todos os ambientes)
-RUN_PORT=8003
+[default]
+RUN_PORT = 8003
 DEBUG = false
 TITLE = 'Flask@Box'
 LOCALE = 'pt_BR.UTF-8'

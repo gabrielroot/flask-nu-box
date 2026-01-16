@@ -24,5 +24,7 @@ def init_app(app, **config):
         root_path=ROOT_PATH,
         settings_files=["settings.toml"],
         load_dotenv=True,
+        environments=True,
+        env_switcher="ENV_FOR_DYNACONF",
         **config
     )
