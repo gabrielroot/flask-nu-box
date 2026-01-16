@@ -41,6 +41,8 @@ USER app_user
 ENV FLASK_RUN_PORT=8003 \
     FLASK_DEBUG=1 \
     ENV_FOR_DYNACONF=development \
+    ROOT_PATH_FOR_DYNACONF=/usr/src/app \
+    SETTINGS_FILES_FOR_DYNACONF=/usr/src/app/settings.toml \
     FLASK_APP=nuBox/app.py
 
 EXPOSE 8003
