@@ -1,6 +1,10 @@
+import os
 from importlib import import_module
 
 from dynaconf import FlaskDynaconf
+
+# Obtém o diretório raiz do projeto (onde está settings.toml)
+ROOT_PATH = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
 def load_extensions(app):
@@ -14,4 +18,8 @@ def load_extensions(app):
 
 
 def init_app(app, **config):
-    FlaskDynaconf(app, **config)
+    FlaskDynaconf(
+        app,
+        settings_files=[os.path.join(ROOT_PATH, "settings.toml")],
+        **config
+    )
