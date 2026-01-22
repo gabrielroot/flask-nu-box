@@ -72,8 +72,7 @@ ENV FLASK_RUN_PORT=80 \
 
 EXPOSE 80
 
-# Usa gunicorn em produção para melhor performance
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "2", "nuBox.app:create_app()"]
+CMD [ "python", "-m", "flask", "run", "--host=0.0.0.0"]
 
 
 # ============================================
