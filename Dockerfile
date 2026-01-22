@@ -1,94 +1,36 @@
-# ============================================
-# STAGE 1: Builder - Instala dependências
-# ============================================
-FROM python:3.12-slim AS builder
+FROM python:3.7.3
 
-WORKDIR /build
+ARG APP_PATH='/usr/src/app'
 
-# Instala dependências de build necessárias
-RUN apt-get update \
- && apt-get install -y --no-install-recommends \
-    gcc \
-    libpq-dev \
- && rm -rf /var/lib/apt/lists/*
+WORKDIR $APP_PATH
 
-# Cria virtualenv para isolar dependências
-RUN python -m venv /opt/venv
-ENV PATH="/opt/venv/bin:$PATH"
-
-# Copia e instala dependências (aproveita cache do Docker)
 COPY requirements.txt .
-RUN pip install --no-cache-dir --upgrade pip \
- && pip install --no-cache-dir -r requirements.txt
+# Set the locale to money currency formatation
+RUN apt-get -y update && apt-get -y install locales locales-all
+ENV LANG pt_BR.UTF-8  
+ENV LANGUAGE pt_BR:en  
+ENV LC_ALL pt_BR.UTF-8 
 
+# Add user 
+RUN groupadd -g 1000 app_user
+RUN useradd -u 1000 -ms /bin/bash -g app_user app_user
 
-# ============================================
-# STAGE 2: Runtime - Imagem final mínima
-# ============================================
-FROM python:3.12-slim AS runtime
+# Copy existing application directory permissions
+COPY --chown=app_user:app_user . $APP_PATH
 
-ARG APP_PATH=/usr/src/app
-WORKDIR ${APP_PATH}
+RUN chown app_user:app_user -R $APP_PATH
+RUN chmod 777 -R $APP_PATH
+RUN chmod g+s -R  $APP_PATH
 
-ENV DEBIAN_FRONTEND=noninteractive \
-    PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1 \
-    PATH="/opt/venv/bin:$PATH"
+# Change current user to app_user
+USER app_user 
 
-# Instala apenas dependências runtime mínimas + locale
-RUN apt-get update \
- && apt-get install -y --no-install-recommends \
-    locales \
-    libpq5 \
- && sed -i '/pt_BR.UTF-8/s/^# //g' /etc/locale.gen \
- && locale-gen \
- && apt-get purge -y --auto-remove \
- && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+# RUN python -m venv .venv && source .venv/bin/activate
+RUN pip install -r requirements-dev.txt --user 
 
-# Locale envs
-ENV LANG=pt_BR.UTF-8 \
-    LANGUAGE=pt_BR:en \
-    LC_ALL=pt_BR.UTF-8
-
-# Cria usuário não-root
-RUN groupadd -g 1000 app_user \
- && useradd -u 1000 -ms /bin/bash -g app_user app_user
-
-# Copia virtualenv do stage builder
-COPY --from=builder /opt/venv /opt/venv
-
-# Copia código da aplicação
-COPY --chown=app_user:app_user . ${APP_PATH}
-
-# Troca para usuário não-root
-USER app_user
-
-ENV FLASK_RUN_PORT=80 \
-    FLASK_DEBUG=1 \
-    ENV_FOR_DYNACONF=development \
-    ROOT_PATH_FOR_DYNACONF=/usr/src/app \
-    SETTINGS_FILES_FOR_DYNACONF=/usr/src/app/settings.toml \
-    FLASK_APP=nuBox/app.py
-
-EXPOSE 80
+ENV FLASK_RUN_PORT=8000
+ENV FLASK_DEBUG=1
+ENV ENV_FOR_DYNACONF=development
+ENV FLASK_APP=nuBox/app.py
 
 CMD [ "python", "-m", "flask", "run", "--host=0.0.0.0"]
-
-
-# ============================================
-# STAGE 3: Development - Com ferramentas de dev
-# ============================================
-FROM runtime AS development
-
-USER root
-
-# Instala dependências de desenvolvimento
-COPY requirements-dev.txt .
-RUN pip install --no-cache-dir -r requirements-dev.txt
-
-USER app_user
-
-ENV FLASK_DEBUG=1 \
-    ENV_FOR_DYNACONF=development
-
-CMD ["python", "-m", "flask", "run", "--host=0.0.0.0"]
