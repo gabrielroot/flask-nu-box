@@ -4,6 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      target: development
     environment:
       TZ: 'America/Sao_Paulo'
       ENV_FOR_DYNACONF: 'development'
