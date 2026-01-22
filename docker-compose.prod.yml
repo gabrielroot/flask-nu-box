@@ -1,7 +1,7 @@
 services:
   main:
     container_name: main
-    image: ghcr.io/gabrielroot/nuflask-nu-box:latest
+    image: ghcr.io/gabrielroot/flask-nu-box:latest
     environment:
       TZ: America/Sao_Paulo
       ENV_FOR_DYNACONF: development
