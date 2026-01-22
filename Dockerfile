@@ -1,36 +1,50 @@
-FROM python:3.7.3
+# Força imagem moderna (Debian bookworm)
+FROM python:3.12-slim
 
-ARG APP_PATH='/usr/src/app'
+ARG CACHE_BUST=20260116
 
-WORKDIR $APP_PATH
+ARG APP_PATH=/usr/src/app
+WORKDIR ${APP_PATH}
 
-COPY requirements.txt .
-# Set the locale to money currency formatation
-RUN apt-get -y update && apt-get -y install locales locales-all
-ENV LANG pt_BR.UTF-8  
-ENV LANGUAGE pt_BR:en  
-ENV LC_ALL pt_BR.UTF-8 
+ENV DEBIAN_FRONTEND=noninteractive
 
-# Add user 
-RUN groupadd -g 1000 app_user
-RUN useradd -u 1000 -ms /bin/bash -g app_user app_user
+# ---- Instala dependências do sistema + locale correto ----
+RUN apt update \
+ && apt install -y --no-install-recommends \
+    locales \
+    ca-certificates \
+ && sed -i '/pt_BR.UTF-8/s/^# //g' /etc/locale.gen \
+ && locale-gen \
+ && rm -rf /var/lib/apt/lists/*
 
-# Copy existing application directory permissions
-COPY --chown=app_user:app_user . $APP_PATH
+# ---- Locale envs ----
+ENV LANG=pt_BR.UTF-8 \
+    LANGUAGE=pt_BR:en \
+    LC_ALL=pt_BR.UTF-8
 
-RUN chown app_user:app_user -R $APP_PATH
-RUN chmod 777 -R $APP_PATH
-RUN chmod g+s -R  $APP_PATH
+# ---- Cria usuário não-root ----
+RUN groupadd -g 1000 app_user \
+ && useradd -u 1000 -ms /bin/bash -g app_user app_user
 
-# Change current user to app_user
-USER app_user 
+COPY requirements.txt requirements-dev.txt ./
 
-# RUN python -m venv .venv && source .venv/bin/activate
-RUN pip install -r requirements-dev.txt --user 
+RUN pip install --no-cache-dir -r requirements-dev.txt
 
-ENV FLASK_RUN_PORT=8000
-ENV FLASK_DEBUG=1
-ENV ENV_FOR_DYNACONF=development
-ENV FLASK_APP=nuBox/app.py
+# ---- Copia código com owner correto ----
+COPY --chown=app_user:app_user . ${APP_PATH}
 
-CMD [ "python", "-m", "flask", "run", "--host=0.0.0.0"]
+RUN chmod -R 755 ${APP_PATH}
+
+# ---- Troca para usuário não-root ----
+USER app_user
+
+ENV FLASK_RUN_PORT=80 \
+    FLASK_DEBUG=1 \
+    ENV_FOR_DYNACONF=development \
+    ROOT_PATH_FOR_DYNACONF=/usr/src/app \
+    SETTINGS_FILES_FOR_DYNACONF=/usr/src/app/settings.toml \
+    FLASK_APP=nuBox/app.py
+
+EXPOSE 80
+
+CMD ["python", "-m", "flask", "run", "--host=0.0.0.0"]
