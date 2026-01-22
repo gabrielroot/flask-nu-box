@@ -46,12 +46,10 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: .docker/php/Dockerfile.prod
-          target: production
+          file: .Dockerfile
+          target: runtime
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          build-args: |
-            TIMEZONE=America/Sao_Paulo
