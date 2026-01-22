@@ -63,13 +63,14 @@ COPY --chown=app_user:app_user . ${APP_PATH}
 # Troca para usuário não-root
 USER app_user
 
-ENV FLASK_RUN_PORT=8000 \
-    ENV_FOR_DYNACONF=production \
+ENV FLASK_RUN_PORT=80 \
+    FLASK_DEBUG=1 \
+    ENV_FOR_DYNACONF=development \
     ROOT_PATH_FOR_DYNACONF=/usr/src/app \
     SETTINGS_FILES_FOR_DYNACONF=/usr/src/app/settings.toml \
     FLASK_APP=nuBox/app.py
 
-EXPOSE 8000
+EXPOSE 80
 
 # Usa gunicorn em produção para melhor performance
 CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "2", "nuBox.app:create_app()"]
