@@ -1,19 +1,16 @@
 services:
   main:
     container_name: main
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: ghcr.io/gabrielroot/nuflask-nu-box:latest
     environment:
-      TZ: 'America/Sao_Paulo'
-      ENV_FOR_DYNACONF: 'development'
+      TZ: America/Sao_Paulo
+      ENV_FOR_DYNACONF: development
     expose:
-      - "80"
+      - '80'
     volumes:
-      - .:/usr/src/app
+      - '.:/usr/src/app'
     networks:
       - flaskk
-
 networks:
   flaskk:
     driver: bridge
