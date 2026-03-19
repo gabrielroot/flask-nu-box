@@ -9,6 +9,11 @@ services:
       - '80'
     volumes:
       - '.:/usr/src/app'
+    healthcheck:
+      test: ["CMD", "curl", "-f", "-H", "Accept: text/html", "http://localhost/auth/login"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
     networks:
       - flaskk
 networks:
