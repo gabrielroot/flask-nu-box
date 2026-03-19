@@ -10,7 +10,7 @@ services:
     volumes:
       - '.:/usr/src/app'
     healthcheck:
-      test: ["CMD", "curl", "-f", "-H", "Accept: text/html", "http://localhost/auth/login"]
+      test: ["CMD", "python", "-c", "import urllib.request,sys; r=urllib.request.urlopen('http://localhost/auth/login'); sys.exit(0 if r.getcode()==200 else 1)"]
       interval: 30s
       timeout: 10s
       retries: 3
