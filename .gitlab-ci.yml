@@ -19,13 +19,13 @@ build-push:
     - docker build --provenance=false
         --target production
         -t $IMAGE_NAME/app:$CI_COMMIT_SHORT_SHA
-        -t $IMAGE_NAME/app:latest -f .docker/php/Dockerfile .
+        -t $IMAGE_NAME/app:latest -f Dockerfile .
 
     # Build do nginx, reutilizando o cache do build anterior
     - docker build --provenance=false
         --target nginx
         -t $IMAGE_NAME/nginx:$CI_COMMIT_SHORT_SHA
-        -t $IMAGE_NAME/nginx:latest -f .docker/php/Dockerfile .
+        -t $IMAGE_NAME/nginx:latest -f Dockerfile .
 
     - docker push $IMAGE_NAME/app:$CI_COMMIT_SHORT_SHA
     - docker push $IMAGE_NAME/app:latest
