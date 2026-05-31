@@ -1,21 +1,29 @@
 services:
-  main:
-    container_name: main
+  nubox:
     image: ghcr.io/gabrielroot/flask-nu-box:latest
     environment:
       TZ: America/Sao_Paulo
       ENV_FOR_DYNACONF: development
     expose:
       - '80'
-    volumes:
-      - '.:/usr/src/app'
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request,sys; r=urllib.request.urlopen('http://localhost/auth/login'); sys.exit(0 if r.getcode()==200 else 1)"]
       interval: 30s
       timeout: 10s
       retries: 3
-    networks:
-      - flaskk
-networks:
-  flaskk:
-    driver: bridge
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 10s
+        failure_action: rollback
+        max_failure_ratio: 0.25
+        order: start-first
+      rollback_config:
+        parallelism: 3
+        delay: 5s
+        order: start-first
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
