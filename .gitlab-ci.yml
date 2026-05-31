@@ -1,0 +1,48 @@
+stages:
+  - build-push
+  - notify-dokploy
+
+variables:
+  IMAGE_NAME: $CI_REGISTRY_IMAGE
+
+build-push:
+  stage: build-push
+  image: docker:27
+  services:
+    - docker:27-dind
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  script:
+    # Build da imagem da app (stage específico)
+    - docker build --provenance=false
+        --target production
+        -t $IMAGE_NAME/app:$CI_COMMIT_SHORT_SHA
+        -t $IMAGE_NAME/app:latest -f .docker/php/Dockerfile .
+
+    # Build do nginx, reutilizando o cache do build anterior
+    - docker build --provenance=false
+        --target nginx
+        -t $IMAGE_NAME/nginx:$CI_COMMIT_SHORT_SHA
+        -t $IMAGE_NAME/nginx:latest -f .docker/php/Dockerfile .
+
+    - docker push $IMAGE_NAME/app:$CI_COMMIT_SHORT_SHA
+    - docker push $IMAGE_NAME/app:latest
+    - docker push $IMAGE_NAME/nginx:$CI_COMMIT_SHORT_SHA
+    - docker push $IMAGE_NAME/nginx:latest
+  only:
+    - main
+
+notify-dokploy:
+  stage: notify-dokploy
+  image: alpine/curl
+  script:
+    - |
+      curl -X POST "$DOKPLOY_WEBHOOK_URL" \
+        -H "Content-Type: application/json" \
+        -H "X-GitHub-Event: push" \
+        -d "{\"ref\": \"refs/heads/$CI_COMMIT_REF_NAME\", \"repository\": {\"full_name\": \"$CI_PROJECT_PATH\"}}"
+  when: on_success
+  only:
+    - main
