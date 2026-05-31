@@ -1,9 +1,7 @@
 services:
   main:
     container_name: main
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: ${IMAGE}
     environment:
       TZ: 'America/Sao_Paulo'
       ENV_FOR_DYNACONF: 'development'

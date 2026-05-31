@@ -17,20 +17,11 @@ build-push:
   script:
     # Build da imagem da app (stage específico)
     - docker build --provenance=false
-        --target production
         -t $IMAGE_NAME/app:$CI_COMMIT_SHORT_SHA
         -t $IMAGE_NAME/app:latest -f Dockerfile .
 
-    # Build do nginx, reutilizando o cache do build anterior
-    - docker build --provenance=false
-        --target nginx
-        -t $IMAGE_NAME/nginx:$CI_COMMIT_SHORT_SHA
-        -t $IMAGE_NAME/nginx:latest -f Dockerfile .
-
     - docker push $IMAGE_NAME/app:$CI_COMMIT_SHORT_SHA
     - docker push $IMAGE_NAME/app:latest
-    - docker push $IMAGE_NAME/nginx:$CI_COMMIT_SHORT_SHA
-    - docker push $IMAGE_NAME/nginx:latest
   only:
     - main
 
