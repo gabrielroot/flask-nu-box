@@ -13,6 +13,9 @@ services:
       retries: 3
     deploy:
       replicas: 1
+      placement:
+        constraints:
+          - node.labels.arch == aarm
       update_config:
         parallelism: 2
         delay: 10s
