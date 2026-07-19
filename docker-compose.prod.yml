@@ -1,6 +1,6 @@
 services:
   nubox:
-    image: ghcr.io/gabrielroot/flask-nu-box:latest
+    image: ${APP_IMAGE:-registry.gitlab.grwxtech.com/gabrielroot/nubox.grwxtech.com/app:latest}
     environment:
       TZ: America/Sao_Paulo
       ENV_FOR_DYNACONF: development
